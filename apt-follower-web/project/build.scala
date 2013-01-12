@@ -12,6 +12,7 @@ object LiftProjectBuild extends Build {
     organization := "pl.brosbit",
     version      := "0.1",
     scalaVersion := "2.9.2")
+    
   
   def yourWebSettings = webSettings ++ Seq(
     port in container.Configuration := 8080
@@ -32,8 +33,9 @@ object LiftProjectBuild extends Build {
 	  val liftVersion = "2.5-M3"
 	  Seq(
 	    "net.liftweb" %% "lift-webkit" % liftVersion % "compile",
-	    "net.liftweb" %% "lift-mapper" % liftVersion % "compile",	 
-	    "org.eclipse.jetty" % "jetty-webapp" % "7.5.4.v20111024" % "container",
+	    "net.liftweb" %% "lift-mapper" % liftVersion % "compile",
+	    "org.eclipse.jetty.orbit" % "javax.servlet" % "3.0.0.v201112011016" % "container" artifacts (Artifact("javax.servlet", "jar", "jar")),	 
+	    "org.eclipse.jetty" % "jetty-webapp" % "8.1.4.v20120524" % "container",
 	    "ch.qos.logback" % "logback-classic" % "1.0.0" % "compile",
 	    "com.h2database" % "h2" % "1.3.170" % "compile",
 	    "org.scalatest" %% "scalatest" % "1.6.1" % "test" 
@@ -48,4 +50,5 @@ object LiftProjectBuild extends Build {
     testOptions in Test += Tests.Argument("-oF")
   )
 }
+
 

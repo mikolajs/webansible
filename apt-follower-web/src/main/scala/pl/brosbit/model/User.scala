@@ -23,23 +23,7 @@ object User extends User with MetaMegaProtoUser[User] {
   override def createUserMenuLoc = Empty
   // comment this line out to require email validations
   override def skipEmailValidation = true
-  // redefine login form for nice formatting
-  override def loginXhtml=
-	 <form method="post" action={S.uri}>
-		  <div style="margin-bottom: 5px; margin-left: 5px;"><strong>{S.??("log.in")}</strong></div>
-		  <div style="float: left; line-height: 2.5em;margin-left: 5px; margin-right: 20px;">
-		  	{S.??("email.address")}<br/>
-		  	{S.??("password")}<br/>
-		  	<a href={lostPasswordPath.mkString("/", "/", "")}>{S.??("recover.password")}</a>
-          </div>
-          <div style="line-height: 2.5em;">
-          	<user:email /><br/>
-          	<user:password /><br/>  
-          	<user:submit />  
-          </div>
-     </form>
 		  	
-
   override def loginMenuLocParams = Hidden::super.loginMenuLocParams
   
   override def lostPasswordMenuLocParams =Hidden::super.lostPasswordMenuLocParams
@@ -48,9 +32,6 @@ object User extends User with MetaMegaProtoUser[User] {
 	
 }
 
-/**
- * An O-R mapped "User" class that includes first name, last name, password and we add a "Personal Essay" to it
- */
 class User extends MegaProtoUser[User] {
   def getSingleton = User // what's the "meta" server 
   }

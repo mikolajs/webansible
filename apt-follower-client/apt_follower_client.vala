@@ -15,30 +15,46 @@ using GLib;
 
 public class AptFallowerClient : Object 
 {	
-	string ipAddress = "153.19.170.34"; //"127.0.0.1";
+	string ipAddress = "127.0.0.1";
 	string password = "";
 	string vector = "";
-    SocketClient client;
-    SocketConnection conn;
+    string hostname = "host";
+    const string orders_subpath = "/api/orders/";
+    const string packages_subpath = "/api/packages/";
+    const string config_file_path = "/home/ms/Programy/wioowszkole/apt-follower-new/config.conf"; // "/etc/apt-fallower/apt-fallower.conf";
+    string server_port = "8080";
+    string orders_fullpath = "";
+    string packages_fullpath = "";
+    long last_upgrade = 0L;
+    long last_send_with_success = 0L;
     		
 	public AptFallowerClient ()
 	{	
         read_config_file();
+        read_host_name();
+        packages_fullpath =  "http://%s:%s%s%s".printf(ipAddress, server_port, packages_subpath, hostname);
+        orders_fullpath =  "http://%s:%s%s%s".printf(ipAddress, server_port, orders_subpath, hostname);
+        var now = new DateTime.now_local ();
+	
+        stdout.printf("%ld time", now.get_utc_offset());
 	}
 
 
 	static void main () 
 	{		
-        var client = new AptFallowerClient();   
-        while(true)
+        var client = new AptFallowerClient();  
+  
+        client.test();
+       /*
+       while(true)
         {
-            Thread.usleep(2000000L);
+           
             client.get_connection_to_server();
             client.send_package_info();
             client.read_incomming_data();
             client.disconnect_server();
             Thread.usleep(2000000L);
-            /*
+            
             int n = 4;
             bool read = false;
             client.get_connection_to_server();
@@ -59,58 +75,42 @@ public class AptFallowerClient : Object
             Thread.usleep(1800000);
             */
             
-        }
+        
        
 	}
+    
 
 
-    public void get_connection_to_server() 
-    {
-        try {
-        client = new SocketClient ();
-        conn = client.connect (new InetSocketAddress (new InetAddress.from_string(ipAddress), 55780)); 
-        print (@"Connected to $ipAddress\n");
-    } catch (Error e) {print("Error: %s \n", e.message);}
-   }
-   
-   public void disconnect_server() 
-   {
-       try { conn.close(); } catch (Error e) {print("Error: %s \n", e.message);}
-       print("disconnected server");
-   }
- 
     public void send_package_info()
 	{
-    try {
-       
 		var aptConnector = new AptConnector();
-        var packageXML = aptConnector.get_packages_in_xml();
-    
-        conn.output_stream.write (packageXML.data);
-        print ("Send packages \n");
-        
-    } catch (Error e) {
-        stderr.printf ("%s\n", e.message);
-    }
+        var packageXML = aptConnector.get_packages_in_xml(password);;
+        var parameterData = "dataxml=" + packageXML;
+        var session = new Soup.SessionSync ();
+        var message = new Soup.Message ("POST", packages_fullpath);
+      	message.request_headers.append("Content-Type","application/x-www-form-urlencoded");
+      	//message.request_headers.append("Content-Length",parameterData.data.length.to_string());
+        //message.set_response("application/x-www-form-urlencoded", Soup.MemoryUse.COPY, parameterData.data);
+        message.request_body.append(Soup.MemoryUse.COPY, parameterData.data);
+        session.send_message (message);
+       // if(is_response_OK(message.response_body.to_string() ))
+       // {
+        	//var now = new DateTime.now_local ();
+        	//last_send_with_success = now.
+       // }
+        stdout.write (message.response_body.data);
 	}
     
-    public bool read_incomming_data()
+    
+    public void get_orders_info()
     {
-        print("begin read incomming data");
-        try {
-        var input = new DataInputStream (conn.input_stream);
-        print("before read line");
-        conn.socket.set_blocking (true);
-        var message = "";
-        while(message = input.read_line (null).strip ()) != null);
-       print ("Received orders: %s\n", message);
-       return true;
-
-    } catch (Error e) {
-        stderr.printf ("%s\n", e.message);
+        var session = new Soup.SessionSync ();
+        print(orders_fullpath + "\n");
+        var message = new Soup.Message ("GET", orders_fullpath);
+        session.send_message (message);
+        stdout.write (message.response_body.data);
     }
-     return false;
-    }
+    
     
     public void run_install()
     {
@@ -122,7 +122,7 @@ public class AptFallowerClient : Object
     {
         try 
         {
-            var file = File.new_for_path("/etc/apt-fallower/apt-fallower.conf");
+            var file = File.new_for_path(config_file_path);
             if(file.query_exists())
             {
                 var file_stream = file.read();
@@ -137,12 +137,14 @@ public class AptFallowerClient : Object
                         array = line.split("=");
                         if(array.length > 1) 
                         {
-                            if(array[0] == "server")
+                            if(array[0] == "server_ip")
                                 ipAddress = array[1].strip();
                              if(array[0] == "password")
                                 password = array[1].strip();
                              if(array[0] == "vector")
                                 vector = array[1].strip();
+                             if(array[0] == "server_port")
+                                server_port = array[1].strip();
                         }
                     } 
                 }
@@ -152,15 +154,34 @@ public class AptFallowerClient : Object
         catch (Error e) {stderr.printf ("%s\n", e.message);}
     }
     
+    private void check_last_upgrade()
+    {
+    }
+    
+    private void read_host_name()
+    {
+        hostname = Environment.get_host_name();
+    }
+    
+    private bool is_response_OK(string xmlData)
+    {
+    	string last = "";
+    	xmlData.strip().scanf("<root>%s</root>", last);
+        return (last == "OK"); 
+    }
+
+    private long get_time_now_in_miliseconds() 
+{
+	var now = new DateTime().local_now();
+	
+}
     
 	public void test() 
     {
-        var host = "www.epodrecznik.edu.pl";
-        var message = @"GET / HTTP/1.1\r\nHost: $host\r\n\r\n";
-        conn.output_stream.write (message.data);
-        var input = new DataInputStream (conn.input_stream);
-        conn.socket.set_blocking (true);
-        var recived = input.read_line (null).strip ();
-        print ("Received orders: %s\n", recived);
+
+        get_orders_info();
+        Thread.usleep(500000L);
+        send_package_info();
+
     }
 }

@@ -38,7 +38,7 @@ class Boot {
   
     LiftRules.addToPackages("pl.brosbit")
 
-    Schemifier.schemify(true, Schemifier.infoF _, User, Packages, Orders, Groups, Hosts)
+    Schemifier.schemify(true, Schemifier.infoF _, User, Groups, Hosts)
        
 
 

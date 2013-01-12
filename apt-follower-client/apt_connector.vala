@@ -10,28 +10,33 @@ using GLib;
 public class AptConnector  : Object
 {
 
-	private string statusFilePath = "/var/lib/dpkg/status";
-
-    // Constructor
+    const string status_file_path = "/var/lib/dpkg/status";
+    long modyfied_time = 0L;
+   
     public AptConnector () 
 	{
         
     }
 
-	public string get_packages_in_xml()
+	public string get_packages_in_xml(string password)
 	{
-		var xmlString = "<root><packageList>";
+		StringBuilder xmlString = new StringBuilder();
+        xmlString.append("<root><upgrade>");
+        xmlString.append(modyfied_time.to_string());
+        xmlString.append("</upgrade><password>");
+        xmlString.append(password);
+        xmlString.append("</password><packageList>");
 		var pack = get_package_list();
-		xmlString = xmlString.concat(pack);
-		xmlString = xmlString.concat("</packageList></root>");
-		return xmlString;
+		xmlString.append(pack);
+		xmlString.append("</packageList></root>");
+		return xmlString.str;
 	}
 
 	private string get_package_list()
 	{
 		var packagesXML = new StringBuilder(); 
 		
-		var file = File.new_for_path(statusFilePath);
+		var file = File.new_for_path(status_file_path);
 		if (!file.query_exists ()) 
 		{
 			stderr.printf ("File '%s' doesn't exist.\n", file.get_path ());
@@ -40,6 +45,7 @@ public class AptConnector  : Object
 
 		try 
 		{
+            get_last_time_upgrade(file);
 			var dis = new DataInputStream (file.read());
 			string line;
 			string[] tmpArray; 
@@ -56,7 +62,21 @@ public class AptConnector  : Object
 			error ("%s", e.message);
 		}
 		return  packagesXML.str;
-
 	}
+    
+    private void get_last_time_upgrade(File file)
+    {
+        try {
+          var info = file.query_info("*", 0);
+          var time_val = info.get_modification_time();
+          modyfied_time = time_val.tv_sec;
+          modyfied_time *= 1000L; // change to miliseconds
+          stdout.printf("status modyfied at: %ld " , modyfied_time);
+      }
+      catch (Error e) 
+      {
+          error("Error: %s", e.message);
+      }
+    }
 
 }
