@@ -1,12 +1,4 @@
-# webapt #
+socko-bootstrap
+===============
 
-## Build & Run ##
-
-```sh
-$ cd webapt
-$ ./sbt
-> container:start
-> browse
-```
-
-If `browse` doesn't launch your browser, manually open [http://localhost:8080/](http://localhost:8080/) in your browser.
+Scaffolding to help you get started with Socko.
