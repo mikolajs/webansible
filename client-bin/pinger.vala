@@ -14,11 +14,14 @@ using GLib;
 
 public class Pinger : Object 
 {	
+    const int64 MIN_TIME_WAIT = 600000000L; //10 minutes
+    const int64 MIN_TIME_STEP = 60000000L; //1 minute
 	string ipAddress = "127.0.0.1";
 	string password = "";
 	string vector = "";
     string hostname = "host";
-	int64 time_wait = 86400000000L;
+	int64 time_wait = MIN_TIME_WAIT;
+    int64 time_step = MIN_TIME_STEP;
     const string config_file_path = "/home/ms/Programy/webcfengine/config.conf"; // "/etc/ansible/webansible.conf";
     string server_port = "8080";
     string ping_fullpath = "";
@@ -35,7 +38,7 @@ public class Pinger : Object
 	static void main () 
 	{		
         var client = new Pinger();  
-        client.test();
+        client.run();
       
 	}
     
@@ -83,12 +86,16 @@ public class Pinger : Object
                                 vector = array[1].strip();
                              if(array[0] == "server_port")
                                 server_port = array[1].strip();
-			     if(array[0] == "time_wait") 
-				{
-                time_wait = long.parse(array[1].strip())*60000L;
-				if(time_wait < 5000L) time_wait = 5000L;
-				
-				}
+			                 if(array[0] == "time_ping") 
+				             {
+                                time_wait = long.parse(array[1].strip())*600000000L;
+				                if(time_wait < MIN_TIME_WAIT) time_wait = MIN_TIME_WAIT;				
+				             }
+                             if(array[0] == "time_step") 
+				             {
+                                time_step = long.parse(array[1].strip())*60000000L;
+				                if(time_step < MIN_TIME_STEP) time_step = MIN_TIME_STEP;				
+				             }
                         }
                     } 
                 }
@@ -99,11 +106,11 @@ public class Pinger : Object
     }
     
     
-	public void test() 
+	public void run() 
     {
         while(true) {
             if(last_send_with_success > time_wait) make_ping();
-            Thread.usleep(5000000L);
+            Thread.usleep(50000000L);
 		    if(last_send_with_success < time_wait) last_send_with_success += 5000000L;
         }
 
