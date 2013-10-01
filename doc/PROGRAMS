@@ -1,0 +1,23 @@
+
+## Webapt:
+ [scala, spray.io, h2:mem]
+* get pings over http in http://domain/pings path form clients
+	(colect ip form hosts with DHCP)
+* create /etc/ansible/hosts file from pings
+ 	(in future give input for ansible - $ANSIBLE_PATH)
+* insert deb repository and copy to clients
+* show all aivalible packages and allow to mark package be required or not (or without any policy)
+* make install, update, upgrade by ansible
+* allow create text file (i.e. config), config path and copy to clients by ansible
+* allow to run command on clients by ansible
+
+## pinger:
+ [vala]
+* ping to server and send their hostname (carry ip)
+* configurable by file /etc/default/pinger.conf
+
+## pkgmgr:
+ [scala]
+* get deb links
+* return aivalible packages
+* return dependences for package - list of packages
