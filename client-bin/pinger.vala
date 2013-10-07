@@ -1,8 +1,8 @@
 /*
- * pinger.c
- * Copyright (C) 2012 Mikołaj Sochacki <mikolajsochacki@gmail.com>
+ * pinger.vala
+ * Copyright (C) 2013 Mikołaj Sochacki <mikolajsochacki@gmail.com>
  * 
- * webansible is free software: you can redistribute it and/or modify it
+ * webapt is free software: you can redistribute it and/or modify it
  * under the terms of the GNU Lesser General Public License as published
  * by the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
@@ -22,7 +22,7 @@ public class Pinger : Object
     string hostname = "host";
 	int64 time_wait = MIN_TIME_WAIT;
     int64 time_step = MIN_TIME_STEP;
-    const string config_file_path = "/home/ms/Programy/webcfengine/config.conf"; // "/etc/ansible/webansible.conf";
+    const string config_file_path = "/etc/ansible/webapt.conf";
     string server_port = "8080";
     string ping_fullpath = "";
     int64 last_send_with_success = 10000000000000000L;

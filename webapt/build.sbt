@@ -1,7 +1,9 @@
 import sbtassembly.Plugin._
 import AssemblyKeys._
 
-organization  := "com.example"
+organization  := "pl.brosbit"
+
+name := "webapt"
 
 version       := "0.1"
 
@@ -21,6 +23,7 @@ libraryDependencies ++= Seq(
   "io.spray"            %   "spray-testkit" % "1.1-M8",
   "com.typesafe.akka"   %%  "akka-actor"    % "2.1.4",
   "com.typesafe.akka"   %%  "akka-testkit"  % "2.1.4",
+  "com.h2database" % "h2" % "1.3.167",
   "org.specs2"          %%  "specs2"        % "1.14" % "test"
 )
 
