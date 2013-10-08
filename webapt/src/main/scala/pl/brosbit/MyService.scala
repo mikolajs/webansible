@@ -2,6 +2,7 @@ package pl.brosbit
 
 import java.util.Date
 import akka.actor.Actor
+import akka.actor.Props
 import spray.routing._
 import spray.http._
 import MediaTypes._
@@ -17,7 +18,11 @@ class MyServiceActor extends Actor with MyService {
     // this actor only runs our route, but you could add
     // other things here, like request stream processing
     // or timeout handling
+    val dbActor = context.actorOf(props = Props[DBInsertActor], name = "dbActor")
+    
     def receive = runRoute(myRoute)
+    
+    override def saveData(host:String, ip:String) = dbActor ! HostInfo(host, ip)
 }
 
 // this trait defines our service behavior independently from the service actor
@@ -43,7 +48,7 @@ trait MyService extends HttpService {
                         clientIP { ip =>
                             respondWithMediaType(`text/html`) { // XML is marshalled to `text/xml` by default, so we simply override here
                                 complete {
-                                    saveData(hostName)
+                                   saveData(hostName, ip.toString)
                                     <html>
                                         <body>
                                             <h1>PONG { "HostName: " + hostName + " -  IP: " +  ip.toString }</h1>
@@ -67,7 +72,7 @@ trait MyService extends HttpService {
                 }
             }
 
-    def saveData(host: String) {
+    def saveData(host: String, ip:String) {
         println("---------------- HOSTNAME ===== " + host)
     }
 }

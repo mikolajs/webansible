@@ -3,110 +3,86 @@ package pl.brosbit
 import akka.actor.{Actor, ActorLogging}
 
 import java.io.{File, BufferedWriter, FileWriter}
-
+import java.sql._
+import java.util.Date
 
 case class HostInfo(host:String, ip:String)
 
 
 class DBInsertActor extends Actor with ActorLogging {
-
-  
- 
+	Class.forName("org.h2.Driver") 
+  val usr = "webansible"
+  val pwd = "qwerty"
+  val url = "jdbc:h2:webansible"
+  var conn:Connection = _
+  initDB
+  createTables
   
   def receive = {
-    case HostInfo(host, ip) =>
+    case HostInfo(host, ip) => {
+      println("recive connection form " + host)
+      renewHostInDB(host, ip)
+    }
        
   }
  
- }
-import java.sql._
-class DBtest {
-  Class.forName("org.postgresql.Driver")
-  //Class.forName("org.sqlite.JDBC")
-  //val usr = "testuser"
-  //val pwd = "qwerty"
-  //val url = "test1" //url może trzeba dodać hosta? ms?
-
-  
-  val usr = "vregister"
-  val pwd = "qwerty"
-  val url = "jdbc:postgresql:vregister"
-  var timeStart = System.currentTimeMillis
-  //ustanowienie połączenia
-  var conn:Connection = _
-
-  def startTimer() { timeStart = System.currentTimeMillis }
-  def showTimer() =  System.currentTimeMillis - timeStart
-
-  def initDB() {
+	private def initDB() {
     try {
+      println("Init connection ===================== !!!")
       conn =  DriverManager.getConnection(url,usr,pwd)
     }
     catch {
       case e:Exception => println("Error: " + e.toString)
-        case _ => println("Nieznany błąd połączenia z bazą")
+        case _:Throwable => println("Nieznany błąd połączenia z bazą")
     }
+    
+    
 
   }
-
-  def dbClose() {
+	
+	def renewHostInDB(hostName:String, ip:String) = {
+	  val metaData = conn.getMetaData
+      val stat = conn.createStatement
+      var result = stat.executeQuery("SELECT hostname, ip, lastping FROM pinger_host WHERE hostname = '%s'".format(hostName))
+      val rMetaD = result.getMetaData
+      val numberOfColumn = rMetaD.getColumnCount
+      val timeStamp = (new Timestamp((new Date).getTime)).toLocaleString()
+      if(result.first()) {
+       val statUpdate = stat.executeUpdate("UPDATE pinger_host set ip = '%s', lastping = '%s' WHERE hostname = '%s'"
+    	      .format(ip, timeStamp, hostName))
+       println("UPDATE status  " + statUpdate)
+      }   	  
+      else {
+        val insertSuccess = stat.executeUpdate("INSERT INTO pinger_host (hostname, ip, lastping) VALUES( '%s', '%s', '%s' )"
+            .format(hostName, ip, timeStamp))
+        println("INSERT success " +insertSuccess)
+      }
+	}
+	
+	def createTables() {
+	  try {
+      val stat = conn.createStatement
+	  stat.execute("""Create table PINGER_HOST (
+	      hostname varchar(60) primary key,
+	      ip varchar(15),
+	      lastping TIMESTAMP
+	      )
+	      """)
+    } catch {
+      case _  => println("Create table fail") 
+    }
+	  
+	}
+	
+	def dispose() { dbClose }
+	
+	private def dbClose() {
     try {
       conn.close
     }
     catch {
       case e:Exception => println("Error: " + e.toString)
-        case _ => println("Nieznany błąd zamykania bazy")
+        case _:Throwable => println("Nieznany błąd zamykania bazy")
     }
   }
-
-  def readData() {
-    try {
-      val time1 = System.currentTimeMillis
-      val metaData = conn.getMetaData
-      val stat = conn.createStatement
-      val result = stat.executeQuery("SELECT * FROM teachers WHERE sureName > 'Naz853000'")
-      val rMetaD = result.getMetaData
-      val numberOfColumn = rMetaD.getColumnCount
-      val time2 = System.currentTimeMillis -time1
-      val timeStr = (time2 / 1000.0).toString
-      var size = 0
-      while(result.next) {
-        size += 1
-        for(i <- (1 to numberOfColumn)) print(result.getString(i) + "|")
-          println("")
-      }
-
-      println("Czas wykonania wyszukiwania: " + timeStr )
-      println("Ilość rzędów: " + size)
-    }
-    catch {
-       case e:Exception => println("Error: " + e.toString)
-        case _ => println("Nieznany błąd odczytu danych")
-    }
-  }
-
-  def insertData(id:Int,nazwa:String) {
-    //try {
-      val stat = conn.createStatement
-      stat.executeUpdate("INSERT INTO test VALUES(" + id + ",'" + nazwa +  "')")
-    //}
-    //catch {
-      //case e:Exception => println("Error: " + e.toString)
-      //case _ => println("Nieznany błąd zapisu danych")
-     //}
-    }
-
-  def executeQ(s:String) {
-    val stat = conn.createStatement
-    stat.executeUpdate(s)
-  }
-
-  def testMakeStrings():String = {
-    var l:List[String] = List()
-    for( i <- (10 to 100000 )) {
-     l = ("INSERT INTO test VALUES(" + i.toString + ",'nazwa" + i.toString + "')")::l
-    }
-    l.mkString(";")
-  }
-  
-}
+ }
