@@ -1,10 +1,10 @@
 package pl.brosbit
 
 import akka.actor.{Actor, ActorLogging}
-
 import java.io.{File, BufferedWriter, FileWriter}
 import java.sql._
 import java.util.Date
+//import org.specs2.io.FileWriter
 
 case class HostInfo(host:String, ip:String)
 
@@ -22,6 +22,10 @@ class DBInsertActor extends Actor with ActorLogging {
     case HostInfo(host, ip) => {
       println("recive connection form " + host)
       renewHostInDB(host, ip)
+    }
+    case i:String => {
+      println("Create file order")
+      createConfigFile();
     }
        
   }
@@ -72,6 +76,20 @@ class DBInsertActor extends Actor with ActorLogging {
       case _  => println("Create table fail") 
     }
 	  
+	}
+	
+	def createConfigFile() {
+	  val stat = conn.createStatement()
+	  val result = stat.executeQuery("Select hostname, ip from pinger_host")
+	  var contentStr = ""
+	  while(result.next()){
+	    contentStr += "\n[%s]\n%s\n".format(result.getString(1), result.getString(2))
+	  }
+	  val file = new File("/home/ms/Programy/scala/webansible/hosts")
+	  val fileWriter = new FileWriter(file)
+	  fileWriter.write(contentStr)
+	  fileWriter.flush()
+	  fileWriter.close()
 	}
 	
 	def dispose() { dbClose }

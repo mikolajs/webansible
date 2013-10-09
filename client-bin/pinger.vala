@@ -16,11 +16,11 @@ public class Pinger : Object
 {	
     const int64 MIN_TIME_WAIT = 600000000L; //10 minutes
     const int64 MIN_TIME_STEP = 60000000L; //1 minute
-	string ipAddress = "127.0.0.1";
-	string password = "";
-	string vector = "";
+    string ipAddress = "127.0.0.1";
+    string password = "";
+    string vector = "";
     string hostname = "host";
-	int64 time_wait = MIN_TIME_WAIT;
+    int64 time_wait = MIN_TIME_WAIT;
     int64 time_step = MIN_TIME_STEP;
     const string config_file_path = "/etc/ansible/webapt.conf";
     string server_port = "8080";
