@@ -1,0 +1,7 @@
+*.~
+project/
+*.class
+webapt/project/project
+webapt/project/target
+webapt/target
+
