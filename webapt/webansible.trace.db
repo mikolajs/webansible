@@ -393,3 +393,21 @@ Create table PINGER_HOST (
 	      lastping TIMESTAMP
 	      )
 	       [42101-167]
+10-15 08:24:17 jdbc[2]: exception
+org.h2.jdbc.JdbcSQLException: Tablela "PINGER_HOST" juz istnieje
+Table "PINGER_HOST" already exists; SQL statement:
+Create table PINGER_HOST (
+	      hostname varchar(60) primary key,
+	      ip varchar(15),
+	      lastping TIMESTAMP
+	      )
+	       [42101-167]
+10-15 08:38:40 jdbc[2]: exception
+org.h2.jdbc.JdbcSQLException: Tablela "PINGER_HOST" juz istnieje
+Table "PINGER_HOST" already exists; SQL statement:
+Create table PINGER_HOST (
+	      hostname varchar(60) primary key,
+	      ip varchar(15),
+	      lastping TIMESTAMP
+	      )
+	       [42101-167]

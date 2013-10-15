@@ -85,7 +85,7 @@ class DBInsertActor extends Actor with ActorLogging {
 	  while(result.next()){
 	    contentStr += "\n[%s]\n%s\n".format(result.getString(1), result.getString(2))
 	  }
-	  val file = new File("/home/ms/Programy/scala/webansible/hosts")
+	  val file = new File("/etc/ansible/hosts")
 	  val fileWriter = new FileWriter(file)
 	  fileWriter.write(contentStr)
 	  fileWriter.flush()
