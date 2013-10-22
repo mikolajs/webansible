@@ -6,7 +6,7 @@ import java.sql._
 import java.util.Date
 //import org.specs2.io.FileWriter
 
-case class HostInfo(host:String, ip:String)
+case class HostInfo(host:String, ip:String, date:Date)
 
 
 class DBInsertActor extends Actor with ActorLogging {
@@ -19,13 +19,13 @@ class DBInsertActor extends Actor with ActorLogging {
   createTables
   
   def receive = {
-    case HostInfo(host, ip) => {
-      println("recive connection form " + host)
-      renewHostInDB(host, ip)
-    }
     case i:String => {
       println("Create file order")
       createConfigFile();
+    }
+    case hostInfoList:List[HostInfo] => {
+        println("Save all hosts to DB")
+        saveData(hostInfoList)
     }
        
   }
@@ -43,14 +43,18 @@ class DBInsertActor extends Actor with ActorLogging {
     
 
   }
+  
+    def saveData(hostInfoList:List[HostInfo]) {
+        hostInfoList.foreach(hi => renewHostInDB(hi.host, hi.ip, hi.date))
+    }
 	
-	def renewHostInDB(hostName:String, ip:String) = {
+	def renewHostInDB(hostName:String, ip:String, date:Date) = {
 	  val metaData = conn.getMetaData
       val stat = conn.createStatement
       var result = stat.executeQuery("SELECT hostname, ip, lastping FROM pinger_host WHERE hostname = '%s'".format(hostName))
       val rMetaD = result.getMetaData
       val numberOfColumn = rMetaD.getColumnCount
-      val timeStamp = (new Timestamp((new Date).getTime)).toLocaleString()
+      val timeStamp = (new Timestamp(date.getTime)).toLocaleString()
       if(result.first()) {
        val statUpdate = stat.executeUpdate("UPDATE pinger_host set ip = '%s', lastping = '%s' WHERE hostname = '%s'"
     	      .format(ip, timeStamp, hostName))
