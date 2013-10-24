@@ -23,7 +23,7 @@ class MyServiceActor extends Actor with MyService {
   def receive = runRoute(myRoute)
 
   override def saveData() = dbActor ! HostData.getAllHosts.toList 
-  override def createFile() {dbActor ! "save"}
+  override def createFile() {HostData.createFile}
 }
 
 // this trait defines our service behavior independently from the service actor
