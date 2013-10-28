@@ -1,5 +1,6 @@
 import sbtassembly.Plugin._
 import AssemblyKeys._
+import twirl.sbt.TwirlPlugin._
 
 organization  := "pl.brosbit"
 
@@ -10,6 +11,8 @@ version       := "0.1"
 scalaVersion  := "2.10.2"
 
 scalacOptions := Seq("-unchecked", "-deprecation", "-encoding", "utf8")
+
+seq(Twirl.settings: _*)
 
 resolvers ++= Seq(
   "spray repo" at "http://repo.spray.io/"
