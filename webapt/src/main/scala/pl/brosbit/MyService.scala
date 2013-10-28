@@ -22,8 +22,8 @@ class MyServiceActor extends Actor with MyService {
 
   def receive = runRoute(myRoute)
 
-  override def saveData(host: String, ip: String) = dbActor ! HostInfo(host, ip)
-  override def createFile() {dbActor ! "save"}
+  override def saveData() = dbActor ! HostData.getAllHosts.toList 
+  override def createFile() {HostData.createFile}
 }
 
 // this trait defines our service behavior independently from the service actor
@@ -40,6 +40,16 @@ trait MyService extends HttpService {
                 <div>
                   <a href="/createfile">Zapisz plik /etc/ansible/host</a>
                 </div>
+                <div>
+                  <a href="/savedata"> Zapisz dane do bazy</a>
+                </div>
+                <div>
+                <h2>Lista wykrytych hostów</h2>
+                    <ul>
+                    {HostData.getAllHosts.sortWith((hi1, hi2) => hi1.host > hi2.host).
+                            map(h => <li>{h.host} | {h.ip} | {h.date.toString}</li>)}
+                    </ul>
+                </div>
               </body>
             </html>
           }
@@ -50,9 +60,10 @@ trait MyService extends HttpService {
         get {
           parameters("h") { hostName =>
             clientIP { ip =>
+              
               respondWithMediaType(`text/html`) {
                 complete {
-                  saveData(hostName, ip.toString)
+                  HostData.addHost(HostInfo(hostName, ip.toString, new Date))
                   <html>
                     <body>
                       <h1>PONG { "HostName: " + hostName + " -  IP: " + ip.toString }</h1>
@@ -84,10 +95,20 @@ trait MyService extends HttpService {
             }
           }
         }
+      } ~
+      path("savedata") {
+        get {
+          respondWithMediaType(`text/html`) {
+            complete {
+              saveData
+              <html><body><h1>Plik gotowy</h1></body></html>
+            }
+          }
+        }
       }
 
-  def saveData(host: String, ip: String) {
-    println("---------------- HOSTNAME ===== " + host)
+  def saveData() {
+    println("---------------- HOSTNAME ===== ")
   }
   
   def createFile() {}

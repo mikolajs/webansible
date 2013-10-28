@@ -19,6 +19,7 @@ derby.log
 .classpath
 .project
 .manager
+.db
 # building
 target
 build

@@ -25,7 +25,7 @@ public class Pinger : Object
   const string config_file_path = "/etc/ansible/webapt.conf";
   string server_port = "8080";
   string ping_fullpath = "";
-  int64 last_send_with_success = 10000000000000000L;
+  int64 last_send_with_success = MIN_TIME_WAIT;
 
   public Pinger ()
   {
@@ -103,10 +103,10 @@ public class Pinger : Object
     public void run()
     {
       while(true) {
-        print("Next loop " + last_send_with_success.to_string() );
+        print("Next loop " + last_send_with_success.to_string() + "\n");
         if(last_send_with_success > time_wait) make_ping();
-        else last_send_with_success += MIN_TIME_STEP ;
-          Thread.usleep((ulong)MIN_TIME_STEP );
+        else last_send_with_success += time_step;
+          Thread.usleep((ulong)time_step);
         }
     }
 }

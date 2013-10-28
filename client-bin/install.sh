@@ -30,7 +30,7 @@ cp pinger $BINARY_PATH
 echo "#!/bin/sh" > $INITD_PATH
 echo "#start pinger-ansible" >> $INITD_PATH
 echo " " >> $INITD_PATH
-echo "/usr/bin/pinger-ansible" >> $INITD_PATH
+echo "/usr/bin/pinger-ansible &" >> $INITD_PATH
 echo " " >> $INITD_PATH
 
 ln -s $INITD_PATH /etc/rc5.d/S78pinger-ansible
