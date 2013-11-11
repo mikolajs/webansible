@@ -6,6 +6,7 @@ import akka.actor.Props
 import spray.routing._
 import spray.http._
 import MediaTypes._
+         import twirl.api.{Xml, Txt, Html}
 
 // we don't implement our route structure directly in the service actor because
 // we want to be able to test it independently, without having to spin up an actor
@@ -105,6 +106,16 @@ trait MyService extends HttpService {
             }
           }
         }
+      } ~
+      path("test") {
+          get {
+               respondWithMediaType(`text/html`){
+                    complete {
+                                   import spray.httpx.TwirlSupport._
+                 html.index.render(new Date)
+                    }
+              }
+          }
       }
 
   def saveData() {
