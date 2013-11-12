@@ -4,7 +4,7 @@
 ansible all -m ping
 
 #uruchamianie komendy
-ansible all -a "comand full" --user=administrator -K
+ansible all -m command -a "comand full" --user=administrator -K
 
 #instalacja pakietu
 ansible all -m apt -a "pkg=eclipse state=present" --user=administrator -K
