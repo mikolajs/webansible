@@ -442,3 +442,129 @@ Create table PINGER_HOST (
 	      lastping TIMESTAMP
 	      )
 	       [42101-167]
+11-12 13:12:03 jdbc[2]: exception
+org.h2.jdbc.JdbcSQLException: Tablela "PINGER_HOST" juz istnieje
+Table "PINGER_HOST" already exists; SQL statement:
+Create table PINGER_HOST (
+	      hostname varchar(60) primary key,
+	      ip varchar(15),
+	      lastping TIMESTAMP
+	      )
+	       [42101-167]
+11-12 13:20:09 jdbc[2]: exception
+org.h2.jdbc.JdbcSQLException: Tablela "PINGER_HOST" juz istnieje
+Table "PINGER_HOST" already exists; SQL statement:
+Create table PINGER_HOST (
+	      hostname varchar(60) primary key,
+	      ip varchar(15),
+	      lastping TIMESTAMP
+	      )
+	       [42101-167]
+11-12 15:37:06 jdbc[2]: exception
+org.h2.jdbc.JdbcSQLException: Tablela "PINGER_HOST" juz istnieje
+Table "PINGER_HOST" already exists; SQL statement:
+Create table PINGER_HOST (
+	      hostname varchar(60) primary key,
+	      ip varchar(15),
+	      lastping TIMESTAMP
+	      )
+	       [42101-167]
+11-12 20:11:13 jdbc[2]: exception
+org.h2.jdbc.JdbcSQLException: Tablela "PINGER_HOST" juz istnieje
+Table "PINGER_HOST" already exists; SQL statement:
+Create table PINGER_HOST (
+	      hostname varchar(60) primary key,
+	      ip varchar(15),
+	      lastping TIMESTAMP
+	      )
+	       [42101-167]
+11-12 20:19:43 jdbc[2]: exception
+org.h2.jdbc.JdbcSQLException: Tablela "PINGER_HOST" juz istnieje
+Table "PINGER_HOST" already exists; SQL statement:
+Create table PINGER_HOST (
+	      hostname varchar(60) primary key,
+	      ip varchar(15),
+	      lastping TIMESTAMP
+	      )
+	       [42101-167]
+11-12 20:21:36 jdbc[2]: exception
+org.h2.jdbc.JdbcSQLException: Tablela "PINGER_HOST" juz istnieje
+Table "PINGER_HOST" already exists; SQL statement:
+Create table PINGER_HOST (
+	      hostname varchar(60) primary key,
+	      ip varchar(15),
+	      lastping TIMESTAMP
+	      )
+	       [42101-167]
+11-12 20:22:39 jdbc[2]: exception
+org.h2.jdbc.JdbcSQLException: Tablela "PINGER_HOST" juz istnieje
+Table "PINGER_HOST" already exists; SQL statement:
+Create table PINGER_HOST (
+	      hostname varchar(60) primary key,
+	      ip varchar(15),
+	      lastping TIMESTAMP
+	      )
+	       [42101-167]
+11-12 20:26:36 jdbc[2]: exception
+org.h2.jdbc.JdbcSQLException: Tablela "PINGER_HOST" juz istnieje
+Table "PINGER_HOST" already exists; SQL statement:
+Create table PINGER_HOST (
+	      hostname varchar(60) primary key,
+	      ip varchar(15),
+	      lastping TIMESTAMP
+	      )
+	       [42101-167]
+11-12 20:29:28 jdbc[2]: exception
+org.h2.jdbc.JdbcSQLException: Tablela "PINGER_HOST" juz istnieje
+Table "PINGER_HOST" already exists; SQL statement:
+Create table PINGER_HOST (
+	      hostname varchar(60) primary key,
+	      ip varchar(15),
+	      lastping TIMESTAMP
+	      )
+	       [42101-167]
+11-12 20:33:15 jdbc[2]: exception
+org.h2.jdbc.JdbcSQLException: Tablela "PINGER_HOST" juz istnieje
+Table "PINGER_HOST" already exists; SQL statement:
+Create table PINGER_HOST (
+	      hostname varchar(60) primary key,
+	      ip varchar(15),
+	      lastping TIMESTAMP
+	      )
+	       [42101-167]
+11-12 20:38:35 jdbc[2]: exception
+org.h2.jdbc.JdbcSQLException: Tablela "PINGER_HOST" juz istnieje
+Table "PINGER_HOST" already exists; SQL statement:
+Create table PINGER_HOST (
+	      hostname varchar(60) primary key,
+	      ip varchar(15),
+	      lastping TIMESTAMP
+	      )
+	       [42101-167]
+11-12 20:42:20 jdbc[2]: exception
+org.h2.jdbc.JdbcSQLException: Tablela "PINGER_HOST" juz istnieje
+Table "PINGER_HOST" already exists; SQL statement:
+Create table PINGER_HOST (
+	      hostname varchar(60) primary key,
+	      ip varchar(15),
+	      lastping TIMESTAMP
+	      )
+	       [42101-167]
+11-12 20:43:25 jdbc[2]: exception
+org.h2.jdbc.JdbcSQLException: Tablela "PINGER_HOST" juz istnieje
+Table "PINGER_HOST" already exists; SQL statement:
+Create table PINGER_HOST (
+	      hostname varchar(60) primary key,
+	      ip varchar(15),
+	      lastping TIMESTAMP
+	      )
+	       [42101-167]
+11-12 20:44:58 jdbc[2]: exception
+org.h2.jdbc.JdbcSQLException: Tablela "PINGER_HOST" juz istnieje
+Table "PINGER_HOST" already exists; SQL statement:
+Create table PINGER_HOST (
+	      hostname varchar(60) primary key,
+	      ip varchar(15),
+	      lastping TIMESTAMP
+	      )
+	       [42101-167]
