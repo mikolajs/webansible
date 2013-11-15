@@ -1,6 +1,15 @@
 #!/bin/sh
 
 
+SERVER_KEY=
+
+#install packages
+apt-get install ssh -y
+apt-get install libsoup2.4-1 -y
+
+echo $SERVER_KEY > $HOME/.ssh/authorized_keys
+
+
 BINARY_PATH=/usr/bin/pinger-ansible
 INITD_PATH=/etc/init.d/pinger-ansible
 CONF_PATH=/etc/ansible/webapt.conf
@@ -36,4 +45,3 @@ echo " " >> $INITD_PATH
 ln -s $INITD_PATH /etc/rc5.d/S78pinger-ansible
 
 $BINARY_PATH&
-
