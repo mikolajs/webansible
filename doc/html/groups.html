@@ -1,0 +1,670 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>WebAnsible</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!-- Bootstrap -->
+<link href="css/bootstrap.min.css" rel="stylesheet">
+<link href="css/jquery-ui.css" rel="stylesheet">
+<script src="js/jquery.js"></script>
+<script src="js/jquery-ui.js"></script>
+<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+<!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+    <![endif]-->
+
+</head>
+<body>
+	<nav class="navbar navbar-default" role="navigation">
+		<div class="navbar-header">
+			<button type="button" class="navbar-toggle" data-toggle="collapse"
+				data-target="#bs-example-navbar-collapse-1">
+				<span class="sr-only">Przełączanie</span> <span class="icon-bar"></span>
+				<span class="icon-bar"></span> <span class="icon-bar"></span>
+			</button>
+			<a class="navbar-brand" href="#">WebAnsible</a>
+		</div>
+
+		<!-- Collect the nav links, forms, and other content for toggling -->
+		<div class="collapse navbar-collapse"
+			id="bs-example-navbar-collapse-1">
+			<ul class="nav navbar-nav navbar-right">
+				<li class="active"><a href="#">Grupy</a></li>
+				<li><a href="commands">Polecenia</a></li>
+				<li><a href="files">Pliki</a></li>
+				<li><a href="packages">Apt-źródła</a></li>
+				<li><a href="packages">Apt-pakiety</a></li>
+				<li><a href="users">Użytkownicy</a></li>
+			</ul>
+		</div>
+		<!-- /.navbar-collapse -->
+	</nav>
+
+	<div class="container" style="margin-top: 10px;">
+	
+		<div class="row">
+			<div class="col-lg-6">
+				<div class="panel panel-default">
+					<div class="panel-heading">Grupy</div>
+					<div class="panel-body">
+						<div class="row">
+							<div class="col-md-6">
+								<div class="btn-group">
+									<button type="button" class="btn btn-default dropdown-toggle"
+										data-toggle="dropdown" style="width: 120px;">
+										Grupa<span class="caret"></span>
+									</button>
+									<ul class="dropdown-menu" role="menu">
+										<li><a href="#">Action</a></li>
+									</ul>
+								</div>
+							</div>
+							<div class="col-md-6">
+								<div class="btn-group">
+									<button type="button" class="btn btn-success">
+										<span class="glyphicon glyphicon-plus"></span> Dodaj
+									</button>
+									<button type="button" class="btn btn-danger">
+										<span class="glyphicon glyphicon-minus"></span> Usuń
+									</button>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="col-lg-6">
+				<div class="panel panel-default">
+					<div class="panel-heading">Użytkownik i hasło sudo</div>
+					<div class="panel-body">
+						<div class="row">
+							<div class="col-md-6">
+								<div class="input-group btn-xs">
+									<span class="input-group-addon glyphicon glyphicon-user"></span>
+									<input type="text" class="form-control"
+										placeholder="Nazwa użytkownika sudo" />
+								</div>
+							</div>
+							<div class="col-md-6">
+								<div class="input-group btn-xs">
+									<span class="input-group-addon glyphicon glyphicon-lock"></span>
+									<input type="password" class="form-control"
+										placeholder="Hasło sudo" />
+								</div>
+							</div>
+						</div>
+					</div>
+
+				</div>
+			</div>
+
+		</div>
+		
+		<!-- END  group and user sudo ---- BEGIN GROUP and HOSTS -->
+		
+		<div class="well well-sm"><h4> Grupy i komputery </h4></div>
+		
+
+		<div class="row">
+			<div class="col-lg-6">
+				<div class="panel panel-default">
+					<div class="panel-heading">Grupa: Nazwa grupy</div>
+            <div class="panel-body">
+					<table class="table table-hover">
+						<thead>
+							<tr>
+								<th>Host</th>
+								<th>IP</th>
+								<th>Ping</th>
+								<th>Usuń</th>
+							</tr>
+						</thead>
+						<tbody></tbody>
+					</table>
+				</div>
+			</div>
+			</div>
+			<div class="col-lg-6">
+				<div class="panel panel-default">
+					<div class="panel-heading">Nieprzydzielone komputery</div>
+					<div class="panel-body">
+				
+				 <div class="form-horizontal" role="form">
+  <div class="form-group">
+    <label for="input1" class="col-sm-3 control-label">Nazwa hosta</label>
+    <div class="col-sm-9">
+      <input type="text" class="form-control" id="input1" placeholder="Nazwa hosta">
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="input2" class="col-sm-3 control-label">Stałe IP</label>
+    <div class="col-sm-9">
+      <input type="text" class="form-control" id="input2" placeholder="Stałe IP">
+    </div>
+  </div>
+  <div class="form-group">
+    <div class="col-sm-offset-3 col-sm-9">
+      <div class="checkbox">
+        <label>
+          <input type="checkbox"> Zmienny adres IP
+        </label>
+      </div>
+    </div>
+  </div>
+  <div class="form-group">
+    <div class="col-sm-offset-2 col-sm-4">
+      <button type="submit" class="btn btn-success">Zapisz</button>
+    </div>
+     <div class="col-sm-offset-2 col-sm-4">
+      <button type="submit" class="btn btn-danger">Usuń</button>
+    </div>
+  </div>
+</div>
+				 <hr/>
+					<table class="table table-hover">
+            <thead>
+              <tr>
+                <th>Host</th>
+                <th>IP</th>
+                <th>Edycja</th>
+                <th>Przydziel</th>
+              </tr>
+            </thead>
+            <tbody></tbody>
+          </table>
+					
+					
+					</div>
+				</div>
+			</div>
+		</div>
+
+<!-- END HOST and GROUPS ---- BEGIN COMMANDS -->
+
+  <div class="well well-sm"><h4> Polecenia </h4></div>
+
+		<div class="row">
+			<div class="col-lg-6">
+				<div class="panel panel-default">
+					<div class="panel-heading"> Lista poleceń</div>
+					<div class="panel-body">
+					
+					 <div class="form-horizontal" role="form">
+					 <div class="form-group">
+    <label for="input1" class="col-sm-3 control-label">#</label>
+    <div class="col-sm-9">
+      <input type="text"  readonly="readonly" class="form-control" id="inputNR" placeholder="Nazwa">
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="input1" class="col-sm-3 control-label">Nazwa</label>
+    <div class="col-sm-9">
+      <input type="text" class="form-control" id="input1" placeholder="Nazwa">
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="input2" class="col-sm-3 control-label">Polecenie</label>
+    <div class="col-sm-9">
+      <input type="text" class="form-control" id="input2" placeholder="Polecenie">
+    </div>
+  </div>
+  <div class="form-group">
+        <label for="textarea34" class="col-sm-3 control-label">Opis </label>
+         <div class="col-sm-9">
+        <textarea id="textarea23" class="form-control" rows="2"></textarea>
+        </div>
+    </div>
+  <div class="form-group">
+    <div class="col-sm-offset-1 col-sm-3">
+      <button type="submit" class="btn btn-success">Zapisz</button>
+    </div>
+     <div class="col-sm-offset-1 col-sm-3">
+      <button type="submit" class="btn btn-danger">Usuń</button>
+    </div>
+     <div class="col-sm-offset-1 col-sm-3">
+    <button type="button" class="btn btn-default"> Czyść</button>
+                  </div>
+  </div>
+</div>
+<hr/>
+						<table class="table table-hover">
+							<thead>
+								<tr>
+								  <th>#</th>
+									<th>Nazwa</th>
+									<th>Polecenie</th>
+									<th>Opis</th>
+									<th>Edytuj</th>
+									<th>Uruchom</th>
+								</tr>
+							</thead>
+							<tbody>
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+			<div class="col-lg-6">
+
+				<div class="panel panel-default">
+					<div class="panel-heading">Komputery / historia uruchomienia komend</div>
+					<div class="panel-body">
+						<div class="btn-group">
+							<button type="button" class="btn btn-success">
+								<span class="glyphicon glyphicon-ok-sign"></span> Zaznacz
+								wszystkie
+							</button>
+							<button type="button" class="btn btn-danger">
+								<span class="glyphicon glyphicon-remove-sign"></span> Odznacz
+								wyszystkie
+							</button>
+						</div>
+						<div class="panel panel-default">
+							<div class="panel-heading">
+								
+										<label><input type="checkbox"> HOST </label>
+								
+
+							</div>
+							<div class="panel-body"></div>
+
+						</div>
+					</div>
+
+				</div>
+			</div>
+		</div>
+
+<!-- ENDS COMMANDS ---- BEGINS FILES -->
+  <div class="well well-sm"><h4> Pliki </h4></div>
+
+  <div class="row">
+      <div class="col-lg-6">
+        <div class="panel panel-default">
+          <div class="panel-heading">Lista plików </div>
+          <div class="panel-body">
+          
+           <div class="form-horizontal" role="form">
+           <div class="form-group">
+    <label for="input1" class="col-sm-3 control-label">#</label>
+    <div class="col-sm-9">
+      <input type="text"  readonly="readonly" class="form-control" id="inputNR" placeholder="Nazwa">
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="input1" class="col-sm-3 control-label">Nazwa</label>
+    <div class="col-sm-9">
+      <input type="text" class="form-control" id="input1" placeholder="Nazwa">
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="input2" class="col-sm-3 control-label">Ścieżka</label>
+    <div class="col-sm-9">
+      <input type="text" class="form-control" id="input2" placeholder="Polecenie">
+    </div>
+  </div>
+  <div class="form-group">
+        <label for="textarea34" class="col-sm-3 control-label">Zawartość</label>
+         <div class="col-sm-9">
+        <textarea id="textarea23" class="form-control" rows="5"></textarea>
+        </div>
+    </div>
+  <div class="form-group">
+    <div class="col-sm-offset-1 col-sm-3">
+      <button type="submit" class="btn btn-success">Zapisz</button>
+    </div>
+     <div class="col-sm-offset-1 col-sm-3">
+      <button type="submit" class="btn btn-danger">Usuń</button>
+    </div>
+    <div class="col-sm-offset-1 col-sm-3">
+    <button type="button" class="btn btn-default"> Czyść</button>
+                  </div>
+  </div>
+</div>
+<hr/>
+            <table class="table table-hover">
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>Nazwa</th>
+                  <th>Ścieżka</th>
+                  <th>Pokaż</th>
+                  <th>Edytuj</th>
+                  <th>Kopiuj</th>
+                </tr>
+              </thead>
+              <tbody>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-6">
+
+        <div class="panel panel-default">
+          <div class="panel-heading">Komputery / historia kopiowania plików</div>
+          <div class="panel-body">
+            <div class="btn-group">
+              <button type="button" class="btn btn-success">
+                <span class="glyphicon glyphicon-ok-sign"></span> Zaznacz
+                wszystkie
+              </button>
+              <button type="button" class="btn btn-danger">
+                <span class="glyphicon glyphicon-remove-sign"></span> Odznacz
+                wyszystkie
+              </button>
+            </div>
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                
+                    <label><input type="checkbox"> HOST </label>
+                
+
+              </div>
+              <div class="panel-body"></div>
+
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+<!-- ENDS FILES ---- BEGINS APT -->
+
+<div class="well well-sm"><h4> Zarządzanie źródłami pakietów APT-GET </h4></div>
+<div class="row">
+<div class="col-lg-6">
+ <div class="panel panel-default">
+          <div class="panel-heading">Źródła pakietów </div>
+          <div class="panel-body">
+          
+           <div class="form-horizontal" role="form">
+           <div class="form-group">
+    <label for="input1" class="col-sm-3 control-label">#</label>
+    <div class="col-sm-9">
+      <input type="text"  readonly="readonly" class="form-control" id="inputNR" placeholder="Nazwa">
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="input1" class="col-sm-3 control-label">Nazwa</label>
+    <div class="col-sm-9">
+      <input type="text" class="form-control" id="input1" placeholder="Nazwa">
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="input2" class="col-sm-3 control-label">Źródło</label>
+    <div class="col-sm-9">
+      <input type="text" class="form-control" id="input2" placeholder="Polecenie">
+    </div>
+  </div>
+  <div class="form-group">
+        <label for="textarea34" class="col-sm-3 control-label">Opis</label>
+         <div class="col-sm-9">
+        <textarea id="textarea23" class="form-control" rows="2"></textarea>
+        </div>
+    </div>
+  <div class="form-group">
+    <div class="col-sm-offset-1 col-sm-3">
+      <button type="submit" class="btn btn-success">Dodaj</button>
+    </div>
+     <div class="col-sm-offset-1 col-sm-3">
+      <button type="submit" class="btn btn-danger">Usuń</button>
+    </div>
+    <div class="col-sm-offset-1 col-sm-3">
+    <button type="button" class="btn btn-default"> Czyść</button>
+                  </div>
+  </div>
+</div>
+<hr/>
+            <table class="table table-hover">
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>Nazwa</th>
+                  <th>Źródło</th>
+                  <th>Opis</th>
+                  <th>Edytuj</th>
+                </tr>
+              </thead>
+              <tbody>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        </div>
+        <div class="col-lg-6">
+        
+         <div class="panel panel-default">
+          <div class="panel-heading">Komputery / źródła pakietów </div>
+          <div class="panel-body">
+            <div class="btn-group">
+              <button type="button" class="btn btn-success">
+                <span class="glyphicon glyphicon-ok-sign"></span> Zaznacz
+                wszystkie
+              </button>
+              <button type="button" class="btn btn-danger">
+                <span class="glyphicon glyphicon-remove-sign"></span> Odznacz
+                wyszystkie
+              </button>
+            </div>
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                
+                    <label><input type="checkbox"> HOST </label>
+                
+
+              </div>
+              <div class="panel-body"></div>
+
+            </div>
+          </div>
+
+        </div>
+        </div>
+    </div>
+
+  <div class="well well-sm"><h4> Zarządzanie  pakietami APT-GET </h4></div>
+  
+   <div class="panel panel-default">
+   <div class="panel-heading"> Pakiety i hosty </div>
+   <div class="panel-body">
+   <div class="btn-toolbar" role="toolbar">
+  <div class="btn-group"><button type="button" class="btn btn-success">
+                <span class="glyphicon glyphicon-repeat"></span> Odśwież żródła
+              </button></div>
+  <div class="btn-group"><button type="button" class="btn btn-success">
+                <span class="glyphicon glyphicon-repeat"></span> Odśwież listy pakietów
+              </button></div>
+</div>
+   
+     <table class="table table-hover">
+              <thead>
+                <tr>
+                  <th>Akcja</th>
+                  <th>Host 1</th>
+                  <th>Host 2</th>
+                  <th>Host 3</th>
+                  <th>Host 4</th>
+                </tr>
+              </thead>
+              <tbody>
+              </tbody>
+            </table>
+ 
+   </div>
+   
+   </div>
+
+<!-- ENDS APT ---- BEGINS USERS -->
+  <div class="well well-sm"><h4> Zarządzanie użytkownikami </h4></div>
+  
+   <div class="row">
+      <div class="col-lg-6">
+        <div class="panel panel-default">
+          <div class="panel-heading"> Edycja użytkowników </div>
+          <div class="panel-body">
+          
+           <div class="form-horizontal" role="form">
+  <div class="form-group">
+    <label for="input1" class="col-sm-3 control-label">Użytkownik</label>
+    <div class="col-sm-9">
+      <input type="text" class="form-control" id="input1" placeholder="Nazwa użytkownika">
+    </div>
+  </div>
+   <div class="form-group">
+    <label for="input1" class="col-sm-3 control-label">Imię i nazwisko</label>
+    <div class="col-sm-9">
+      <input type="text" class="form-control" id="input1" placeholder="Imię i nazwisko">
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="input2" class="col-sm-3 control-label">Hasło</label>
+    <div class="col-sm-9">
+      <input type="text" class="form-control" id="input2" placeholder="hasło">
+    </div>
+  </div>
+
+  <div class="form-group">
+    <div class="col-sm-offset-1 col-sm-3">
+      <button type="submit" class="btn btn-success">Dodaj</button>
+    </div>
+     <div class="col-sm-offset-1 col-sm-3">
+      <button type="submit" class="btn btn-danger">Usuń</button>
+    </div>
+    <div class="col-sm-offset-1 col-sm-3">
+    <button type="button" class="btn btn-default">Czyść</button>
+                  </div>
+  </div>
+</div>
+
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-6">
+
+        <div class="panel panel-default">
+          <div class="panel-heading">Komputery / użytkownicy </div>
+          <div class="panel-body">
+            <div class="btn-group">
+              <button type="button" class="btn btn-success">
+                <span class="glyphicon glyphicon-ok-sign"></span> Zaznacz
+                wszystkie
+              </button>
+              <button type="button" class="btn btn-danger">
+                <span class="glyphicon glyphicon-remove-sign"></span> Odznacz
+                wyszystkie
+              </button>
+            </div>
+            <div class="panel panel-default">
+              <div class="panel-heading">            
+                    <label><input type="checkbox"> HOST </label>             
+              </div>
+              <div class="panel-body"></div>
+
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  
+  <div class="well well-sm"><h4> Playbook - bezpośrednie uruchamianie </h4></div>
+  
+  <div class="row">
+      <div class="col-lg-6">
+        <div class="panel panel-default">
+          <div class="panel-heading"> Pliki Playbook </div>
+          <div class="panel-body">
+          
+           <div class="form-horizontal" role="form">
+            <div class="form-group">
+    <label for="input1" class="col-sm-3 control-label">#</label>
+    <div class="col-sm-9">
+      <input type="text"  readonly="readonly" class="form-control" id="inputNR" placeholder="Nazwa">
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="input1" class="col-sm-3 control-label">Nazwa</label>
+    <div class="col-sm-9">
+      <input type="text" class="form-control" id="input1" placeholder="Nazwa">
+    </div>
+  </div>
+   <div class="form-group">
+    <label for="input1" class="col-sm-3 control-label">Opis</label>
+    <div class="col-sm-9">
+      <textarea id="textarea23" class="form-control" rows="2"></textarea>
+    </div>
+  </div>
+   <div class="form-group">
+        <label for="textarea34" class="col-sm-3 control-label">Playbook</label>
+         <div class="col-sm-9">
+        <textarea id="textarea23" class="form-control" rows="5"></textarea>
+        </div>
+    </div>
+
+  <div class="form-group">
+    <div class="col-sm-offset-1 col-sm-3">
+      <button type="submit" class="btn btn-success">Dodaj</button>
+    </div>
+     <div class="col-sm-offset-1 col-sm-3">
+      <button type="submit" class="btn btn-danger">Usuń</button>
+    </div>
+    <div class="col-sm-offset-1 col-sm-3">
+    <button type="button" class="btn btn-default">Czyść</button>
+                  </div>
+  </div>
+</div>
+<hr/>
+ <table class="table table-hover">
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>Nazwa</th>
+                  <th>Opis</th>
+                  <th>Playbook</th>
+                  <th>Uruchom</th>
+                  <th>Edytuj</th>
+                </tr>
+              </thead>
+              <tbody>
+              </tbody>
+            </table>
+
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-6">
+
+            <div class="panel panel-default">
+          <div class="panel-heading"> Playbook - historia </div>
+          <div class="panel-body">
+           <table class="table table-hover">
+         <thead>
+                <tr>
+                  <th>#</th>
+                  <th>Info</th>
+                  <th>Usuń</th>
+                </tr>
+              </thead>
+              <tbody>
+              </tbody>
+            </table>
+          </div>
+          </div>
+    
+      </div>
+    </div>
+  
+  
+  
+	</div>
+
+	<!-- Include all compiled plugins (below), or include individual files as needed -->
+	<script src="js/bootstrap.min.js"></script>
+</body>
+</html>

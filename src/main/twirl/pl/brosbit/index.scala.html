@@ -1,0 +1,30 @@
+@(date: java.util.Date)
+
+<html>
+<head>
+<link rel="stylesheet" href="static/bootstrap.min.css">
+
+<link rel="stylesheet" href="static/bootstrap-theme.min.css">
+
+<script src="static/bootstrap.min.js"></script>
+
+</head>
+              <body>
+                <h1>Witamy w Webapt @date.toString </h1>
+                <div>
+                  <a href="/createfile">Zapisz plik /etc/ansible/host</a>
+                </div>
+                <div>
+                  <a href="/savedata"> Zapisz dane do bazy</a>
+                </div>
+                <div>
+                <h2>Lista wykrytych hostów</h2>
+                <table>
+                <thead></thead>
+                <tbody></tbody>
+                <tfoot></tfoot>
+                
+                </table>
+                </div>
+              </body>
+            </html>
