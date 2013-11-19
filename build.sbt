@@ -4,7 +4,7 @@ import twirl.sbt.TwirlPlugin._
 
 organization  := "pl.brosbit"
 
-name := "webapt"
+name := "webansible"
 
 version       := "0.1.1"
 
