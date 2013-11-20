@@ -1,12 +1,5 @@
 
 
-function ListCtrl($scope) {
-	$scope.hosts = {
-		group : 'klasa',
-		host : 'PC1',
-		IP : '10.0.0.2'
-	};
-}
 
 var phonecatApp = angular.module('app', [ 'ngRoute',
 		'webControllers' ]);
@@ -48,9 +41,48 @@ webControllers.controller('PlaybooksCtrl', []);
 webControllers.controller('AptSourcesCtrl', []);
 webControllers.controller('AptPackagesCtrl', []);
 
-function GroupsController($scope) {
-	$scope.groups = [{name:"Klasa",
-		id:23}, {name:"Sala",id:22}];
-	//$('.selectpicker').selectpicker();
+function GroupsController($scope, $location) {
+	var findActiveGroup = function(id){
+		for(i in $scope.groups){
+			if($scope.groups[i].id == id) return $scope.groups[i];
+		}
+		return $scope.groups[0].id;
+	}
+	$scope.groups = [{name:"Klasa",id:23}, {name:"Sala",id:22},{name:"Hala",id:34}];
+	//var arrayURL = $location.absUrl().split('#')[0].split('/')
+	//var groupId = arrayURL[arrayURL.length -1];
+	$scope.activeGroup = findActiveGroup(22);
+	$scope.openEdit = false;
+	$scope.openAdd = false;
+	$scope.add = function() {
+		$scope.openEdit = false;
+		$scope.openAdd = true;
+		
+	}
+	$scope.edit = function() {
+		$scope.openAdd = false;
+		$scope.openEdit = true;
+	}
+	$scope.delete = function(){
+		if(confirm("Chcesz usunąć grupę " + $scope.activeGroup.name + "?\n" +  
+				"Wszelkie informacje o grupie zostaną utracone!")) {
+			alert("Kasuję");
+		}
+				
+	}
+	$scope.save = function() {
+		
+		$scope.openAdd = false;
+	}
+	$scope.alter = function() {
+		
+		$scope.openEdit = false;
+	}
+	$scope.close = function(){
+		$scope.openAdd = false;
+		$scope.openEdit = false;
+	}
+	
+	
 }
  
