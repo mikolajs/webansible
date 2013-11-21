@@ -1,5 +1,4 @@
-describe("Test of test ;)", function () {
-   
+describe("GroupController properly select group", function () {
         
     afterEach(function () {
         
