@@ -1,23 +1,27 @@
 
-## Webapt:
- [scala, spray.io, h2:mem]
+ROAD MAP
+
+## WebAnsible:
+ [scala, spray.io, h2 base, ansible]
 * get pings over http in http://domain/pings path form clients
-	(colect ip form hosts with DHCP)
-* create /etc/ansible/hosts file from pings
- 	(in future give input for ansible - $ANSIBLE_PATH)
-* insert deb repository and copy to clients
-* show all aivalible packages and allow to mark package be required or not (or without any policy)
+	(colect ip form hosts with DHCP) - done
+* create /etc/ansible/hosts file from pings - done
+ 	(in future give input for ansible - $ANSIBLE_PATH) 
+* create group of host and add or remove hosts from group
+* insert deb repository and copy to group of clients
+* show all available packages and allow to mark package be required or not (or without any policy) for group
 * make install, update, upgrade by ansible
-* allow create text file (i.e. config), config path and copy to clients by ansible
-* allow to run command on clients by ansible
+* allow create text file (i.e. config), config path and copy to group by ansible
+* allow to run single command on group by ansible
+* allow to run playbook on group
 
 ## pinger:
  [vala]
-* ping to server and send their hostname (carry ip)
-* configurable by file /etc/default/pinger.conf
+* ping to server and send their hostname (carry ip) - done
+* configurable by file /etc/default/pinger.conf - done
 
-## pkgmgr:
+## ScalApt:
  [scala]
 * get deb links
-* return aivalible packages
+* return available packages
 * return dependences for package - list of packages
