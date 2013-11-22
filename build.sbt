@@ -27,7 +27,8 @@ libraryDependencies ++= Seq(
   "com.typesafe.akka"   %%  "akka-actor"    % "2.1.4",
   "com.typesafe.akka"   %%  "akka-testkit"  % "2.1.4",
   "com.h2database" % "h2" % "1.3.167",
-  "org.specs2"          %%  "specs2"        % "1.14" % "test"
+  "org.specs2"          %%  "specs2"        % "1.14" % "test",
+  "org.seleniumhq.selenium" % "selenium-java" % "2.28.0" % "test"
 )
 
 seq(Revolver.settings: _*)
