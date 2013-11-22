@@ -3,7 +3,7 @@
 /* jasmine specs for filters go here */
 
 describe('filter', function() {
-
+/*
   beforeEach(module('phonecatFilters'));
 
 
@@ -14,5 +14,5 @@ describe('filter', function() {
       expect(checkmarkFilter(true)).toBe('\u2713');
       expect(checkmarkFilter(false)).toBe('\u2718');
     }));
-  });
+  }); */
 });

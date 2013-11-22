@@ -1,10 +1,14 @@
 
+var globalObj = new Object();
+globalObj.groupName = ""
+globalObj.groupId = 0;
+globalObj.user = "";
+globalObj.password = "";
 
-
-var phonecatApp = angular.module('app', [ 'ngRoute',
+var webAnsibleApp = angular.module('webAnsibleApp', [ 'ngRoute',
 		'webControllers' ]);
 
-phonecatApp.config([ '$routeProvider', function($routeProvider) {
+webAnsibleApp.config([ '$routeProvider', function($routeProvider) {
 	$routeProvider.when('/hosts', {
 		templateUrl : 'hosts.html',
 		controller : 'HostsCtrl'
@@ -33,15 +37,36 @@ phonecatApp.config([ '$routeProvider', function($routeProvider) {
 
 var webControllers = angular.module('webControllers', []);
 
-webControllers.controller('HostsCtrl', []);
-webControllers.controller('CommandsCtrl', []);
-webControllers.controller('FilesCtrl', []);
-webControllers.controller('UsersCtrl', []);
-webControllers.controller('PlaybooksCtrl', []);
-webControllers.controller('AptSourcesCtrl', []);
-webControllers.controller('AptPackagesCtrl', []);
+webControllers.controller('HostsCtrl',  
+  function($scope, $location) {
+   
+  });
+webControllers.controller('CommandsCtrl',
+  function($scope, $location) {
+   
+  });
+webControllers.controller('FilesCtrl',
+  function($scope, $location) {
+   
+  });
+webControllers.controller('UsersCtrl',
+  function($scope, $location) {
+   
+  });
+webControllers.controller('PlaybooksCtrl',
+  function($scope, $location) {
+   
+  });
+webControllers.controller('AptSourcesCtrl', 
+  function($scope, $location) {
+   
+  });
+webControllers.controller('AptPackagesCtrl', 
+  function($scope, $location) {
+   
+  });
 
-function GroupsController($scope, $location) {
+function GroupsCtrl($scope, $location) {
 	var findActiveGroup = function(id){
 		for(i in $scope.groups){
 			if($scope.groups[i].id == id) return $scope.groups[i];
@@ -49,8 +74,8 @@ function GroupsController($scope, $location) {
 		return $scope.groups[0].id;
 	}
 	$scope.groups = [{name:"Klasa",id:23}, {name:"Sala",id:22},{name:"Hala",id:34}];
-	//var arrayURL = $location.absUrl().split('#')[0].split('/')
-	//var groupId = arrayURL[arrayURL.length -1];
+	// var arrayURL = $location.absUrl().split('#')[0].split('/')
+	// var groupId = arrayURL[arrayURL.length -1];
 	$scope.activeGroup = findActiveGroup(22);
 	$scope.openEdit = false;
 	$scope.openAdd = false;
@@ -82,7 +107,20 @@ function GroupsController($scope, $location) {
 		$scope.openAdd = false;
 		$scope.openEdit = false;
 	}
-	
+		
+}
+
+function UserCtrl($scope) {
+	$scope.userName = "";
+	$scope.userPassword = "";
+	$scope.passChange = function(){
+		globalObj.password = $scope.userPassword;
+	}
+	$scope.userChange = function(){
+		globalObj.user = $scope.userName;
+	}
 	
 }
+
+
  

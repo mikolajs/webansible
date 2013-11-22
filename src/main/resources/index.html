@@ -1,17 +1,18 @@
 <!DOCTYPE html>
-<html ng-app="app">
+<html ng-app="webAnsibleApp">
 <head>
 <meta charset="utf-8">
 <title>WebAnsible</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <!-- Bootstrap -->
 <link href="css/bootstrap.min.css" rel="stylesheet">
+
 <link href="css/jquery-ui.css" rel="stylesheet">
 <script src="js/jquery.js"></script>
 <script src="js/jquery-ui.js"></script>
  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.0/angular.min.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.0/angular-route.min.js"></script>
- <script type="text/javascript" src="js/hosts.js"></script>
+ <script type="text/javascript" src="js/main.js"></script>
  
 <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
 <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -19,7 +20,6 @@
       <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
       <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
     <![endif]-->
-
 </head>
 <body  >
 	<nav class="navbar navbar-default" role="navigation">
@@ -52,31 +52,50 @@
 		<div class="row">
 			<div class="col-lg-6">
 				<div class="panel panel-default">
-					<div class="panel-heading">Grupy</div>
-					<div class="panel-body">
+					<div class="panel-heading"><h4>Grupy</h4></div>
+					<div class="panel-body" ng-controller="GroupsCtrl">
 						<div class="row">
-							<div class="col-md-6">
-								<div class="btn-group">
-									<button type="button" class="btn btn-default dropdown-toggle"
-										data-toggle="dropdown" style="width: 120px;">
-										Grupa<span class="caret"></span>
-									</button>
-									<ul class="dropdown-menu" role="menu">
-										<li><a href="#">Action</a></li>
-									</ul>
-								</div>
+							<div class="col-md-6" >
+									<select ng-model="activeGroup" class="form-control"   
+									ng-options="g.name for g in groups">
+								</select>
 							</div>
 							<div class="col-md-6">
 								<div class="btn-group">
-									<button type="button" class="btn btn-success">
-										<span class="glyphicon glyphicon-plus"></span> Dodaj
+									<button type="button" class="btn btn-success" ng-click="add()">
+										<span class="glyphicon glyphicon-plus" ></span> Dodaj
 									</button>
-									<button type="button" class="btn btn-danger">
+									<button type="button" class="btn btn-info" ng-click="edit()">
+                    <span class="glyphicon glyphicon-pencil"></span> Edytuj
+                  </button>
+									<button type="button" class="btn btn-danger" ng-click="delete()">
 										<span class="glyphicon glyphicon-minus"></span> Usuń
 									</button>
 								</div>
 							</div>
 						</div>
+						<div class="alert" ng-show="openAdd">
+						 <div class="input-group btn-xs">
+                  <input type="text" class="form-control"  placeholder="Nazwa grupy bez spacji" />
+                   <span class="input-group-btn">
+                    <button class="btn btn-success" type="button" ng-click="save()">Dodaj!</button>
+                    <button class="btn btn-danger" type="button" ng-click="close()">
+                    <span class="glyphicon glyphicon-remove-circle" ></span>
+                    </button>
+                  </span>
+                </div>
+						</div>
+						<div class="alert" ng-show="openEdit">
+             <div class="input-group btn-xs">
+                  <input type="text" class="form-control" ng-model="activeGroup.name" placeholder="Nazwa grupy bez spacji" />
+                   <span class="input-group-btn">
+                    <button class="btn btn-info" type="button" ng-click="alter()">Zmień!</button>
+                    <button class="btn btn-danger" type="button" ng-click="close()">
+                    <span class="glyphicon glyphicon-remove-circle" ></span>
+                    </button>
+                  </span>
+                </div>
+            </div>
 					</div>
 				</div>
 			</div>
@@ -84,19 +103,19 @@
 			<div class="col-lg-6">
 				<div class="panel panel-default">
 					<div class="panel-heading">Użytkownik i hasło sudo</div>
-					<div class="panel-body">
+					<div class="panel-body" ng-controller="UserCtrl">
 						<div class="row">
 							<div class="col-md-6">
 								<div class="input-group btn-xs">
 									<span class="input-group-addon glyphicon glyphicon-user"></span>
-									<input type="text" class="form-control"
+									<input type="text" class="form-control"   ng-click="userChange()"
 										placeholder="Nazwa użytkownika sudo" />
 								</div>
 							</div>
 							<div class="col-md-6">
 								<div class="input-group btn-xs">
 									<span class="input-group-addon glyphicon glyphicon-lock"></span>
-									<input type="password" class="form-control"
+									<input type="password" class="form-control"  ng-click="passChange()"
 										placeholder="Hasło sudo" />
 								</div>
 							</div>
@@ -107,11 +126,10 @@
 			</div>
 
 		</div>
-		
-		<!-- END  group and user sudo ---- BEGIN GROUP and HOSTS -->
-		
-	
+			
 		<div ng-view></div>
+		
+
   
   
   
