@@ -3,7 +3,7 @@
 
 <div class="well well-sm"><h4> Grupy i komputery </h4></div>
         
-        <div class="row">
+        <div class="row"  ng-controller="HostsCtrl">
             <div class="col-lg-6">
                 <div class="panel panel-default">
                     <div class="panel-heading">Grupa: Nazwa grupy</div>
@@ -13,11 +13,20 @@
                             <tr>
                                 <th>Host</th>
                                 <th>IP</th>
+                                 <th>Stałe</th>
                                 <th>Ping</th>
                                 <th>Usuń</th>
                             </tr>
                         </thead>
-                        <tbody></tbody>
+                        <tbody>
+                         <tr ng-repeat="host in hosts"   >
+                <td>{{host.name}}</td>
+        <td>{{host.ip}}</td>
+        <td>{{host.firm}}</td>
+        <td>{{host.ping}}</td>
+        <td><button class="btn"  ng-click="removeHostFromGroup(host.name)">Usuń</button></td>
+    </tr>
+                        </tbody>
                     </table>
                 </div>
             </div>
@@ -27,28 +36,25 @@
                     <div class="panel-heading">Nieprzydzielone komputery</div>
                     <div class="panel-body">
                 
-                 <div class="form-horizontal" role="form">
+                 <div class="form-horizontal"  role="form">
   <div class="form-group">
     <label for="input1" class="col-sm-3 control-label">Nazwa hosta</label>
     <div class="col-sm-9">
-      <input type="text" class="form-control" id="input1" placeholder="Nazwa hosta">
+      <input type="text" class="form-control" id="input1" placeholder="Nazwa hosta" />
     </div>
   </div>
   <div class="form-group">
     <label for="input2" class="col-sm-3 control-label">Stałe IP</label>
     <div class="col-sm-9">
-      <input type="text" class="form-control" id="input2" placeholder="Stałe IP">
-    </div>
-  </div>
-  <div class="form-group">
-    <div class="col-sm-offset-3 col-sm-9">
-      <div class="checkbox">
-        <label>
-          <input type="checkbox"> Zmienny adres IP
-        </label>
+    <div class="input-group">
+     <span class="input-group-addon">
+        <input type="checkbox" />
+      </span>
+      <input type="text" class="form-control" id="input2" placeholder="Stałe IP" />
       </div>
     </div>
   </div>
+  
   <div class="form-group">
     <div class="col-sm-offset-2 col-sm-4">
       <button type="submit" class="btn btn-success">Zapisz</button>
@@ -64,11 +70,22 @@
               <tr>
                 <th>Host</th>
                 <th>IP</th>
+                <th>Stałe</th>
                 <th>Edycja</th>
                 <th>Przydziel</th>
               </tr>
             </thead>
-            <tbody></tbody>
+            <tbody>
+            <!--  
+            <tr ng-repeat="host in hostsAvail">
+                <td>{{host.name}}</td>
+        <td>{{host.ip}}</td>
+        <td>{{host.firm}}</td>
+        <td>{{editHost(host.name)}}</td>
+        <td></td>
+    </tr>
+             -->
+            </tbody>
           </table>
                     
                     

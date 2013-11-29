@@ -12,19 +12,19 @@
                      <div class="form-group">
     <label for="input1" class="col-sm-3 control-label">#</label>
     <div class="col-sm-9">
-      <input type="text"  readonly="readonly" class="form-control" id="inputNR" placeholder="Nazwa">
+      <input type="text"  readonly="readonly" class="form-control" id="inputNR" placeholder="Nazwa" />
     </div>
   </div>
   <div class="form-group">
     <label for="input1" class="col-sm-3 control-label">Nazwa</label>
     <div class="col-sm-9">
-      <input type="text" class="form-control" id="input1" placeholder="Nazwa">
+      <input type="text" class="form-control" id="input1" placeholder="Nazwa" />
     </div>
   </div>
   <div class="form-group">
     <label for="input2" class="col-sm-3 control-label">Polecenie</label>
     <div class="col-sm-9">
-      <input type="text" class="form-control" id="input2" placeholder="Polecenie">
+      <input type="text" class="form-control" id="input2" placeholder="Polecenie" />
     </div>
   </div>
   <div class="form-group">
@@ -33,15 +33,29 @@
         <textarea id="textarea23" class="form-control" rows="2"></textarea>
         </div>
     </div>
+     <div class="form-group">
+        <label for="selectGroupCom" class="col-sm-3 control-label">Opis </label>
+         <div class="col-sm-9">
+        <select  type="mulitiple"  id="selectGroupCom" class="form-control"  >
+        <option>all</option>
+        <option>1</option>
+        <option>2</option>
+        <option>3</option>
+        </select>
+        </div>
+    </div>
   <div class="form-group">
-    <div class="col-sm-offset-1 col-sm-3">
+    <div class="col-sm-offset-1 col-sm-2">
       <button type="submit" class="btn btn-success">Zapisz</button>
     </div>
-     <div class="col-sm-offset-1 col-sm-3">
+     <div class="col-sm-offset-1 col-sm-2">
       <button type="submit" class="btn btn-danger">Usuń</button>
     </div>
-     <div class="col-sm-offset-1 col-sm-3">
-    <button type="button" class="btn btn-default"> Czyść</button>
+     <div class="col-sm-offset-1 col-sm-2">
+      <button type="submit" class="btn btn-info">Uruchom</button>
+    </div>
+     <div class="col-sm-offset-1 col-sm-2">
+    <button type="button" class="btn btn-warning"> Dodaj</button>
                   </div>
   </div>
 </div>
@@ -52,9 +66,7 @@
                                   <th>#</th>
                                     <th>Nazwa</th>
                                     <th>Polecenie</th>
-                                    <th>Opis</th>
-                                    <th>Edytuj</th>
-                                    <th>Uruchom</th>
+                                    <th>Opis</th>     
                                 </tr>
                             </thead>
                             <tbody>
@@ -66,28 +78,18 @@
             <div class="col-lg-6">
 
                 <div class="panel panel-default">
-                    <div class="panel-heading">Komputery / historia uruchomienia komend</div>
+                    <div class="panel-heading">Historia uruchomienia komend</div>
                     <div class="panel-body">
-                        <div class="btn-group">
-                            <button type="button" class="btn btn-success">
-                                <span class="glyphicon glyphicon-ok-sign"></span> Zaznacz
-                                wszystkie
-                            </button>
-                            <button type="button" class="btn btn-danger">
-                                <span class="glyphicon glyphicon-remove-sign"></span> Odznacz
-                                wyszystkie
-                            </button>
-                        </div>
-                        <div class="panel panel-default">
-                            <div class="panel-heading">
-                                
-                                        <label><input type="checkbox"> HOST </label>
-                                
+                       <ul class="list-group">
+                        <li class="list-group-item">
+                        <h5>
+                        <span class="badge pull-right" >16/23</span>
+                                Polecenie 1 </h5>
+                                <p>history</p>
+                                </li>
+                        </ul>
 
-                            </div>
-                            <div class="panel-body"></div>
-
-                        </div>
+                      
                     </div>
 
                 </div>

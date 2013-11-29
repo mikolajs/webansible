@@ -56,8 +56,8 @@
 					<div class="panel-body" ng-controller="GroupsCtrl">
 						<div class="row">
 							<div class="col-md-6" >
-									<select ng-model="activeGroup" class="form-control"   
-									ng-options="g.name for g in groups">
+									<select ng-model="activeGroup" class="form-control"   id="activeGroup"
+									ng-options="g.name for g in groups"  ng-change="change()" >
 								</select>
 							</div>
 							<div class="col-md-6">
