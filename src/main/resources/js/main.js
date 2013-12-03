@@ -1,13 +1,4 @@
 
-var hostMockup = [{id:23, hosts:[{name:"PC2", ip:"10.0.0.1", firm:"Nie", ping:"23.12.2014 14:30"},
-		                                 {name:"PC4", ip:"10.0.0.2", firm:"Nie", ping:"23.12.2014 14:30"}, 
-		                                 {name:"PC3", ip:"10.0.0.3", firm:"Nie", ping:"23.12.2014 14:30"}]}, 
-		                                 {id:22, hosts:[{name:"KOM1", ip:"10.0.2.1", firm:"Nie", ping:"23.12.2014 14:30"},
-		       		                                 {name:"KOM2", ip:"10.0.2.2", firm:"Nie", ping:"23.12.2014 14:30"}, 
-		       		                                 {name:"KOM3", ip:"10.0.2.4", firm:"Nie", ping:"23.12.2014 14:30"}]},
-		                  {id:34,  hosts:[{name:"HAL1", ip:"199.0.0.1", firm:"Tak", ping:"23.12.2014 14:30"},
-			                                 {name:"HAL2", ip:"199.0.0.3", firm:"Tak", ping:"23.12.2014 14:30"}]} ];
-
 var webAnsibleApp = angular.module('webAnsibleApp', [ 'ngRoute',
 		'webControllers' ]);
 
@@ -48,7 +39,7 @@ webControllers.controller('GroupsCtrl',
 		}
 		return $scope.groups[0].id;
 	}
-	$scope.groups = [{name:"Klasa",id:23}, {name:"Sala",id:22},{name:"Hala",id:34}];
+	$scope.groups = groupMockup;
 	// its for production
 	// var arrayURL = $location.absUrl().split('#')[0].split('/')
 	// var groupId = arrayURL[arrayURL.length -1];
@@ -95,7 +86,7 @@ webControllers.controller('GroupsCtrl',
 	
 	$scope.getHosts = function() {
 		
-		alert($rootScope.groupId);
+		//alert($rootScope.groupId);
 		//mockuped!!!!!
 		for(i in hostMockup) if(hostMockup[i].id == $rootScope.groupId) return hostMockup[i].hosts;
 	}
@@ -104,7 +95,7 @@ webControllers.controller('GroupsCtrl',
 		$rootScope.groupName = $scope.activeGroup.name;
 		$rootScope.groupId = $scope.activeGroup.id;
 		$rootScope.hosts = $scope.getHosts();
-		alert("changed group function change()  grouId = " + $rootScope.groupId + " \n"+  $rootScope.hosts );
+		//alert("changed group function change()  grouId = " + $rootScope.groupId + " \n"+  $rootScope.hosts );
 	}
 	$scope.ajaxSave = function(){
 		
@@ -117,51 +108,36 @@ webControllers.controller('GroupsCtrl',
 
 webControllers.controller('UserCtrl',  
 		  function($scope, $location, $rootScope) {
-	$rootScope.userName = "";
-	$rootScope.userPassword = "";
+	var userName = "";
+	$rootScope.userName = userName;
+	var userPassword = "";
+	$rootScope.userPassword = userPassword;
 });
 
 
-webControllers.controller('HostsCtrl',  
-  function($scope, $location, $rootScope) {
-	$scope.hostAvail = [];
-	
-	//alert("hostCtrl  host 0 = "  + $rootScope.hosts[0].name );
-	
-	$scope.removeHostFromGroup = function(hostName){
-		alert("removeHostFromGroup - want to remove" + hostName);
-	}
-	
-	$scope.editAvailableHost = function(hostName){
-		alert("editHost - want to remove" + hostName);
-	}
-	
-	$scope.addToGroup = function(){
-		
-	}
-  });
+//not implemented ///////////////////
 webControllers.controller('CommandsCtrl',
-  function($scope, $location) {
+  function($scope, $location,  $rootScope) {
    
   });
 webControllers.controller('FilesCtrl',
-  function($scope, $location) {
+  function($scope, $location,  $rootScope) {
    
   });
 webControllers.controller('UsersCtrl',
-  function($scope, $location) {
+  function($scope, $location,  $rootScope) {
    
   });
 webControllers.controller('PlaybooksCtrl',
-  function($scope, $location) {
+  function($scope, $location,  $rootScope) {
    
   });
 webControllers.controller('AptSourcesCtrl', 
-  function($scope, $location) {
+  function($scope, $location,  $rootScope) {
    
   });
 webControllers.controller('AptPackagesCtrl', 
-  function($scope, $location) {
+  function($scope, $location,  $rootScope) {
    
   });
 

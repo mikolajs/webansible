@@ -1,97 +1,108 @@
 
 <div id="hosts">
 
-<div class="well well-sm"><h4> Grupy i komputery </h4></div>
-        
-        <div class="row"  ng-controller="HostsCtrl">
-            <div class="col-lg-6">
-                <div class="panel panel-default">
-                    <div class="panel-heading">Grupa: Nazwa grupy</div>
-            <div class="panel-body">
-                    <table class="table table-hover">
-                        <thead>
-                            <tr>
-                                <th>Host</th>
-                                <th>IP</th>
-                                 <th>Stałe</th>
-                                <th>Ping</th>
-                                <th>Usuń</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                         <tr ng-repeat="host in hosts"   >
-                <td>{{host.name}}</td>
-        <td>{{host.ip}}</td>
-        <td>{{host.firm}}</td>
-        <td>{{host.ping}}</td>
-        <td><button class="btn"  ng-click="removeHostFromGroup(host.name)">Usuń</button></td>
-    </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-            </div>
-            <div class="col-lg-6">
-                <div class="panel panel-default">
-                    <div class="panel-heading">Nieprzydzielone komputery</div>
-                    <div class="panel-body">
-                
-                 <div class="form-horizontal"  role="form">
-  <div class="form-group">
-    <label for="input1" class="col-sm-3 control-label">Nazwa hosta</label>
-    <div class="col-sm-9">
-      <input type="text" class="form-control" id="input1" placeholder="Nazwa hosta" />
-    </div>
-  </div>
-  <div class="form-group">
-    <label for="input2" class="col-sm-3 control-label">Stałe IP</label>
-    <div class="col-sm-9">
-    <div class="input-group">
-     <span class="input-group-addon">
-        <input type="checkbox" />
-      </span>
-      <input type="text" class="form-control" id="input2" placeholder="Stałe IP" />
-      </div>
-    </div>
-  </div>
-  
-  <div class="form-group">
-    <div class="col-sm-offset-2 col-sm-4">
-      <button type="submit" class="btn btn-success">Zapisz</button>
-    </div>
-     <div class="col-sm-offset-2 col-sm-4">
-      <button type="submit" class="btn btn-danger">Usuń</button>
-    </div>
-  </div>
+	<div class="well well-sm">
+		<h4>Grupy i komputery</h4>
+	</div>
+
+	<div class="row" ng-controller="HostsCtrl">
+		<div class="col-lg-6">
+			<div class="panel panel-default">
+				<div class="panel-heading">Grupa: Nazwa grupy</div>
+				<div class="panel-body">
+					<table class="table table-hover">
+						<thead>
+							<tr>
+							 <th>#</th>
+								<th>Host</th>
+								<th>IP</th>
+								<th>Stałe</th>
+								<th>Ping</th>
+								<th>Usuń</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr ng-repeat="host in hosts">
+							  <td>{{host.id}}</td>
+								<td>{{host.name}}</td>
+								<td>{{host.ip}}</td>
+								<td>{{host.firm}}</td>
+								<td>{{host.ping}}</td>
+								<td><button class="btn"
+										ng-click="removeHostFromGroup($index)">Usuń</button></td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+		<div class="col-lg-6">
+			<div class="panel panel-default">
+				<div class="panel-heading">Nieprzydzielone komputery</div>
+				<div class="panel-body">
+
+					<div class="form-horizontal" role="form">
+						<div class="form-group">
+							<label for="input1" class="col-sm-3 control-label">Nazwa
+								hosta</label>
+							<div class="col-sm-9">
+								<input type="text" class="form-control" id="input1" ng-model="editHostName"
+									placeholder="Nazwa hosta" />
+							</div>
+						</div>
+						<div class="form-group">
+							<label for="input2" class="col-sm-3 control-label">Stałe
+								IP</label>
+							<div class="col-sm-9">
+								<div class="input-group">
+									<span class="input-group-addon"> <input type="checkbox"   ng-model="editHostFirm"/>
+									</span> <input type="text" class="form-control"  ng-model="editHostIp"
+										placeholder="Stałe IP" />
+								</div>
+							</div>
+						</div>
+
+						<div class="form-group">
+							<div class="col-sm-offset-1 col-sm-3">
+								<button type="submit" class="btn btn-info" ng-click="alterHost()">Zmień</button>
+							</div>
+							 <div class="col-sm-offset-1 col-sm-3">
+                                <button type="submit" class="btn btn-success" ng-click="addHost()">Dodaj</button>
+                            </div>
+							<div class="col-sm-offset-1 col-sm-3">
+								<button type="submit" class="btn btn-danger" ng-click="delHost()">Usuń</button>
+							</div>
+						</div>
+					</div>
+					<hr />
+					<table class="table table-hover">
+						<thead>
+							<tr>
+							   <th>#</th>
+								<th>Host</th>
+								<th>IP</th>
+								<th>Stałe</th>
+								<th>Edycja</th>
+								<th>Przydziel</th>
+							</tr>
+						</thead>
+						<tbody>
+
+							<tr ng-repeat="host in hostsAvail">
+							  <td>{{host.id}}</td>
+								<td>{{host.name}}</td>
+								<td>{{host.ip}}</td>
+								<td>{{host.firm}}</td>
+								<td><button class="btn" ng-click="editHost($index)">Edytuj</button></td>
+								<td><button class="btn" ng-click="addToGroup($index)">Przydziel</button></td>
+							</tr>
+						</tbody>
+					</table>
+
+
+				</div>
+			</div>
+		</div>
+	</div>
+
 </div>
-                 <hr/>
-                    <table class="table table-hover">
-            <thead>
-              <tr>
-                <th>Host</th>
-                <th>IP</th>
-                <th>Stałe</th>
-                <th>Edycja</th>
-                <th>Przydziel</th>
-              </tr>
-            </thead>
-            <tbody>
-            <!--  
-            <tr ng-repeat="host in hostsAvail">
-                <td>{{host.name}}</td>
-        <td>{{host.ip}}</td>
-        <td>{{host.firm}}</td>
-        <td>{{editHost(host.name)}}</td>
-        <td></td>
-    </tr>
-             -->
-            </tbody>
-          </table>
-                    
-                    
-                    </div>
-                </div>
-            </div>
-        </div>
-        
-        </div>
