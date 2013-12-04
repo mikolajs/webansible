@@ -12,3 +12,7 @@ var availHostsMockup =  [{id:124,name:"PH2", ip:"10.0.2.1", firm:"Nie", ping:"23
 	                                 {id:174,name:"PH3", ip:"10.0.1.3", firm:"Nie", ping:"23.12.2014 14:39"}];
 
 var groupMockup = [{name:"Klasa",id:23}, {name:"Sala",id:22},{name:"Hala",id:34}];
+
+var commandsMockup = [{id:23,name:"ping", command:"ping -c 2 wp.pl", description:"Czy jest dostęp do internetu"},
+                      {id:25,name:"update", command:"apt-get update -y", description:"Update list pakietów."},
+{id:29,name:"packages", command:"dpkg --list", description:"Pobieranie listy pakietów"}];

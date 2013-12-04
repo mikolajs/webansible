@@ -116,10 +116,7 @@ webControllers.controller('UserCtrl',
 
 
 //not implemented ///////////////////
-webControllers.controller('CommandsCtrl',
-  function($scope, $location,  $rootScope) {
-   
-  });
+
 webControllers.controller('FilesCtrl',
   function($scope, $location,  $rootScope) {
    

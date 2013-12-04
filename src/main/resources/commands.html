@@ -1,99 +1,128 @@
 
 <div id="commands">
-<div class="well well-sm"><h4> Polecenia </h4></div>
+	<div class="well well-sm">
+		<h4>Polecenia</h4>
+	</div>
 
-        <div class="row">
-            <div class="col-lg-6">
-                <div class="panel panel-default">
-                    <div class="panel-heading"> Lista poleceń</div>
-                    <div class="panel-body">
-                    
-                     <div class="form-horizontal" role="form">
-                     <div class="form-group">
-    <label for="input1" class="col-sm-3 control-label">#</label>
-    <div class="col-sm-9">
-      <input type="text"  readonly="readonly" class="form-control" id="inputNR" placeholder="Nazwa" />
-    </div>
-  </div>
-  <div class="form-group">
-    <label for="input1" class="col-sm-3 control-label">Nazwa</label>
-    <div class="col-sm-9">
-      <input type="text" class="form-control" id="input1" placeholder="Nazwa" />
-    </div>
-  </div>
-  <div class="form-group">
-    <label for="input2" class="col-sm-3 control-label">Polecenie</label>
-    <div class="col-sm-9">
-      <input type="text" class="form-control" id="input2" placeholder="Polecenie" />
-    </div>
-  </div>
-  <div class="form-group">
-        <label for="textarea34" class="col-sm-3 control-label">Opis </label>
-         <div class="col-sm-9">
-        <textarea id="textarea23" class="form-control" rows="2"></textarea>
-        </div>
-    </div>
-     <div class="form-group">
-        <label for="selectGroupCom" class="col-sm-3 control-label">Opis </label>
-         <div class="col-sm-9">
-        <select  type="mulitiple"  id="selectGroupCom" class="form-control"  >
-        <option>all</option>
-        <option>1</option>
-        <option>2</option>
-        <option>3</option>
-        </select>
-        </div>
-    </div>
-  <div class="form-group">
-    <div class="col-sm-offset-1 col-sm-2">
-      <button type="submit" class="btn btn-success">Zapisz</button>
-    </div>
-     <div class="col-sm-offset-1 col-sm-2">
-      <button type="submit" class="btn btn-danger">Usuń</button>
-    </div>
-     <div class="col-sm-offset-1 col-sm-2">
-      <button type="submit" class="btn btn-info">Uruchom</button>
-    </div>
-     <div class="col-sm-offset-1 col-sm-2">
-    <button type="button" class="btn btn-warning"> Dodaj</button>
-                  </div>
-  </div>
+	<div class="row" ng-controller="CommandsCtrl">
+		<div class="col-lg-6">
+			<div class="panel panel-default">
+				<div class="panel-heading">Lista poleceń</div>
+				<div class="panel-body">
+
+					<div class="form-horizontal" role="form">
+
+						<div class="form-group">
+							<label class="col-sm-3 control-label">Nazwa</label>
+							<div class="col-sm-9">
+								<input type="text" class="form-control" ng-model="editName"
+									placeholder="Nazwa" />
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-3 control-label">Polecenie</label>
+							<div class="col-sm-9">
+								<input type="text" class="form-control" ng-model="editCommand"
+									placeholder="Polecenie" />
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-3 control-label">Opis </label>
+							<div class="col-sm-9">
+								<input type="text" class="form-control"
+									ng-model="editDescription" placeholder="Polecenie" />
+
+							</div>
+						</div>
+						<div class="form-group">
+							<div class="col-sm-offset-1 col-sm-3">
+								<button type="submit" ng-click="alterCommand()"
+									class="btn btn-success">Zmień</button>
+							</div>
+							<div class="col-sm-offset-1 col-sm-3">
+								<button type="submit" ng-click="deleteCommand()"
+									class="btn btn-danger">Usuń</button>
+							</div>
+							<div class="col-sm-offset-1 col-sm-3">
+								<button type="button" ng-click="addCommand()"
+									class="btn btn-warning">Nowe</button>
+							</div>
+						</div>
+					</div>
+					<hr />
+					<table class="table table-hover">
+						<thead>
+							<tr>
+								<th>#</th>
+								<th>Nazwa</th>
+								<th>Polecenie</th>
+								<th>Opis</th>
+								<th>Edytuj</th>
+								<th>Wybierz</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr ng-repeat="command in commands">
+								<td>{{command.id}}</td>
+								<td>{{command.name}}</td>
+								<td>{{command.command}}</td>
+								<td><img src="img/info.png" title="{{command.description}}" /></td>
+								<td><button class="btn" ng-click="getToEdit($index)">Edytuj</button></td>
+								<td><button class="btn" ng-click="getToRun($index)">Wybierz</button></td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+		<div class="col-lg-6">
+
+			<div class="panel panel-default">
+				<div class="panel-heading">Uruchamianie / historia</div>
+				<div class="panel-body">
+					<div class="form-horizontal" role="form">
+						<div class="form-group">
+							<label class="col-sm-3 control-label">Nazwa</label>
+							<div class="col-sm-9">
+								<input type="text" class="form-control"  ng-model="toRunName" readonly
+									placeholder="Nazwa" />
+							</div>
+						</div>
+
+						<div class="form-group">
+							<label class="col-sm-3 control-label">Hosty </label>
+							<div class="col-sm-9">
+								<select multiple class="form-control" ng-model="toRunHosts">
+									<option>Wszystkie</option>
+									<option ng-repeat="host in hosts">{{host.name}}</option>
+								</select>
+							</div>
+						</div>
+
+						<div class="form-group">
+							<div class="col-sm-offset-1 col-sm-3"></div>
+							<div class="col-sm-offset-1 col-sm-3">
+								<button type="submit" class="btn btn-info">Uruchom</button>
+							</div>
+							<div class="col-sm-offset-1 col-sm-3"></div>
+						</div>
+
+					</div>
+					<hr />
+					<h3>Historia poleceń</h3>
+					<ul class="list-group">
+						<li class="list-group-item">
+							<h5>
+								<span class="badge pull-right">16/23</span> Polecenie 1
+							</h5>
+							<p>history</p>
+						</li>
+					</ul>
+
+
+				</div>
+
+			</div>
+		</div>
+	</div>
 </div>
-<hr/>
-                        <table class="table table-hover">
-                            <thead>
-                                <tr>
-                                  <th>#</th>
-                                    <th>Nazwa</th>
-                                    <th>Polecenie</th>
-                                    <th>Opis</th>     
-                                </tr>
-                            </thead>
-                            <tbody>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-6">
-
-                <div class="panel panel-default">
-                    <div class="panel-heading">Historia uruchomienia komend</div>
-                    <div class="panel-body">
-                       <ul class="list-group">
-                        <li class="list-group-item">
-                        <h5>
-                        <span class="badge pull-right" >16/23</span>
-                                Polecenie 1 </h5>
-                                <p>history</p>
-                                </li>
-                        </ul>
-
-                      
-                    </div>
-
-                </div>
-            </div>
-        </div>
-        </div>
-        
