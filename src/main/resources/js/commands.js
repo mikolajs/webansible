@@ -7,9 +7,12 @@ webControllers.controller('CommandsCtrl',
    $scope.editDescription = "";
    $scope.toRunId = -1;
    $scope.toRunName = "";
-   $scope.toRunHosts = {};
+   $scope.toRunHosts = [];
    $scope.history = [];
+   $scope.showErrorMessage = false;
+	$scope.errorMessage = "";
 	$scope.commands = commandsMockup;
+	$scope.commandStories = commandStoryMockup;
 	
 	$scope.getToEdit = function(index){
 		var command = $scope.commands[index];
@@ -26,6 +29,7 @@ webControllers.controller('CommandsCtrl',
 	}
 	
    $scope.alterCommand = function(){
+	   if(!$scope._isValid()) return;
 	   for(i in $scope.commands){
 		   if($scope.commands[i].id == $scope.editId){
 			   $scope.commands[i].name = $scope.editName;
@@ -52,6 +56,7 @@ webControllers.controller('CommandsCtrl',
    }
 	
    $scope.addCommand = function() {
+	   if(!$scope._isValid()) return;
 	   var command = {id:Math.floor(Math.random()*-1000),
 			   name:$scope.editName,
 			   command:$scope.editCommand,
@@ -61,10 +66,36 @@ webControllers.controller('CommandsCtrl',
 	   $scope._clearEdit();
    }
    
+   $scope.runCommand = function(){
+	   alert("run command: " + $scope.toRunId + " " + $scope.toRunName +  " "  + $scope.toRunHosts.join(':'));
+   }
+   
+   $scope._isValid = function() {
+		var valid = true;
+		if($scope.editName < 3) {
+			$scope.showErrorMessage = true;
+			$scope.errorMessage = "Nazwa musi być dłuższa. ";
+			valid = false;
+		}
+		if( $scope.editCommand < 2){
+			$scope.showErrorMessage = true;
+			$scope.errorMessage += "  Polecenie musi być  dłuższa.";
+			valid = false;
+		}
+		if( $scope.editDescription < 4){
+			$scope.showErrorMessage = true;
+			$scope.errorMessage += " Opis musi być  dłuższy.";
+			valid = false;
+		}
+		return valid;
+	}
+   
    $scope._clearEdit = function(){
 	   $scope.editId = -1;
 	   $scope.editName = "";
 	   $scope.editCommand = "";
 	   $scope.editDescription = "";
+	   $scope.showErrorMessage = false;
+		$scope.errorMessage = "";
    }
   });

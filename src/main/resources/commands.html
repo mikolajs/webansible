@@ -15,7 +15,7 @@
 						<div class="form-group">
 							<label class="col-sm-3 control-label">Nazwa</label>
 							<div class="col-sm-9">
-								<input type="text" class="form-control" ng-model="editName"
+								<input type="text" class="form-control" ng-model="editName"  
 									placeholder="Nazwa" />
 							</div>
 						</div>
@@ -34,6 +34,7 @@
 
 							</div>
 						</div>
+						<div class="alert alert-warning" ng-show="showErrorMessage">{{errorMessage}}</div>
 						<div class="form-group">
 							<div class="col-sm-offset-1 col-sm-3">
 								<button type="submit" ng-click="alterCommand()"
@@ -102,7 +103,7 @@
 						<div class="form-group">
 							<div class="col-sm-offset-1 col-sm-3"></div>
 							<div class="col-sm-offset-1 col-sm-3">
-								<button type="submit" class="btn btn-info">Uruchom</button>
+								<button type="submit" class="btn btn-info"  ng-click="runCommand()">Uruchom</button>
 							</div>
 							<div class="col-sm-offset-1 col-sm-3"></div>
 						</div>
@@ -111,11 +112,11 @@
 					<hr />
 					<h3>Historia poleceń</h3>
 					<ul class="list-group">
-						<li class="list-group-item">
+						<li class="list-group-item" ng-repeat="story in commandStories">
 							<h5>
-								<span class="badge pull-right">16/23</span> Polecenie 1
+								<span class="badge pull-right">{{story.success}} / {{story.all}}</span> {{story.date}}
 							</h5>
-							<p>history</p>
+							<pre>{{story.content}}</pre>
 						</li>
 					</ul>
 

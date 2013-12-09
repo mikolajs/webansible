@@ -52,15 +52,16 @@
 						</div>
 						<div class="form-group">
 							<label class="col-sm-3 control-label">Stałe
-								IP</label>
+								IP/Domena</label>
 							<div class="col-sm-9">
 								<div class="input-group">
 									<span class="input-group-addon"> <input type="checkbox"   ng-model="editHostFirm"/>
-									</span> <input type="text" class="form-control"  ng-model="editHostIp"
+									</span> <input type="text" class="form-control"  ng-model="editHostIp"  ng-change="firmIpInputChanged()"
 										placeholder="Stałe IP" />
 								</div>
 							</div>
 						</div>
+						<div class="alert alert-warning" ng-show="showErrorMessageHost">{{errorMessageHost}}</div>
 
 						<div class="form-group">
 							<div class="col-sm-offset-1 col-sm-3">

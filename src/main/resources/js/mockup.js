@@ -16,3 +16,6 @@ var groupMockup = [{name:"Klasa",id:23}, {name:"Sala",id:22},{name:"Hala",id:34}
 var commandsMockup = [{id:23,name:"ping", command:"ping -c 2 wp.pl", description:"Czy jest dostęp do internetu"},
                       {id:25,name:"update", command:"apt-get update -y", description:"Update list pakietów."},
 {id:29,name:"packages", command:"dpkg --list", description:"Pobieranie listy pakietów"}];
+
+var commandStoryMockup = [{id:23, success:12, all:24, date: "12.12.2013", content: " zawartość "}, 
+                          {id:25,success:2, all:4,  date: "14.12.2013",  content: " zawartość "}];
