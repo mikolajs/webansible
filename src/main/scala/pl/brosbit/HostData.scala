@@ -4,27 +4,25 @@ import java.util.Date
 import scala.collection.mutable.{HashMap, StringBuilder}
 import java.io.{File, BufferedWriter, FileWriter}
 
-case class HostIpAndDate(ip:String, date:Date)
+//case class HostIpAndDate(ip:String, date:Date)
 
 object HostData {
-    val hosts = HashMap[String, HostIpAndDate]()
+    var hosts = List[HostInfo]()
 
     def loadHosts(hostInfo:List[HostInfo]) {
     
     }
 
     def addHost(host:HostInfo) {
-        hosts += ((host.host ,HostIpAndDate(host.ip , host.date))) 
+        hosts = host::hosts
     }
     
-    def getAllHosts() = {
-        hosts.map(h => HostInfo(h._1, h._2.ip, h._2.date)).toList
-    }
+    def getAllHosts() = hosts
     
     def createFile() {
         val contentStr = new StringBuilder
-        this.getAllHosts.map(hi => {
-            contentStr ++= "\n[%s]\n%s\n".format(hi.host, hi.ip)
+        this.getAllHosts.map(h => {
+            contentStr ++= "\n[%s]\n%s\n".format(h.host, h.ip)
         })
         
         val file = new File("/etc/ansible/hosts")

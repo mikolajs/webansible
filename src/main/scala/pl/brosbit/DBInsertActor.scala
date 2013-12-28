@@ -6,9 +6,10 @@ import java.sql._
 import java.util.Date
 //import org.specs2.io.FileWriter
 
-case class HostInfo(host:String, ip:String, date:Date)
+//case class HostInfo(host:String, ip:String, firm:Boolean,  date:Date)
+//case class Group(id:Long, name:String)
 
-
+//rezygnuje na razie i zamieniam na dbproxy
 class DBInsertActor extends Actor with ActorLogging {
 	Class.forName("org.h2.Driver") 
   val usr = "webansible"
@@ -26,6 +27,9 @@ class DBInsertActor extends Actor with ActorLogging {
     case hostInfoList:List[HostInfo] => {
         println("Save all hosts to DB")
         saveData(hostInfoList)
+    }
+    case group:Group => {
+        setGroup(group)
     }
        
   }
@@ -96,11 +100,27 @@ class DBInsertActor extends Actor with ActorLogging {
 	  fileWriter.close()
 	}
 	
+	
+	def setGroup(gr:Group) : Group = {
+	    val stat = conn.createStatement()
+	    if(gr.id > -1) {
+	         val success = stat.execute("alter table group set name = '%s' where id = %d".format(gr.name, gr.id))
+	         if(success) gr
+	         else Group(-1, gr.name)
+	    }
+	    else {
+	         val result = stat.executeQuery("insert into group (name) values('%s' )".format(gr.name))         
+	          val id = if(result.next()) result.getInt(0) else -1
+	          Group(id, gr.name)
+	    }     
+	}
+	
 	def dispose() { dbClose }
 	
 	private def dbClose() {
     try {
       conn.close
+      println("Baza zamknięta")
     }
     catch {
       case e:Exception => println("Error: " + e.toString)

@@ -1,6 +1,5 @@
 
-var webAnsibleApp = angular.module('webAnsibleApp', [ 'ngRoute',
-		'webControllers' ]);
+var webAnsibleApp = angular.module('webAnsibleApp', [ 'ngRoute', 'webAnsibleApp.controllers' ]);
 
 webAnsibleApp.config([ '$routeProvider', function($routeProvider) {
 	$routeProvider.when('/hosts', {
@@ -29,7 +28,7 @@ webAnsibleApp.config([ '$routeProvider', function($routeProvider) {
 	});
 } ]);
 
-var webControllers = angular.module('webControllers', []);
+var webControllers = angular.module('webAnsibleApp.controllers', []);
 
 webControllers.controller('GroupsCtrl',
 		  function($scope, $location, $rootScope) {

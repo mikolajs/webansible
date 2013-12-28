@@ -11,7 +11,7 @@ import MediaTypes._
 
 // we don't implement our route structure directly in the service actor because
 // we want to be able to test it independently, without having to spin up an actor
-class MyServiceActor extends Actor with MyService {
+class MyServiceActor extends Actor with MyService with JsonAnswer {
 
   // the HttpService trait defines only one abstract member, which
   // connects the services environment to the enclosing actor or test
@@ -22,7 +22,7 @@ class MyServiceActor extends Actor with MyService {
   // or timeout handling
   val dbActor = context.actorOf(props = Props[DBInsertActor], name = "dbActor")
 
-  def receive = runRoute(myRoute)
+  def receive = runRoute(jsonRoute ~ myRoute)
 
   override def saveData() = dbActor ! HostData.getAllHosts.toList 
   override def createFile() {HostData.createFile}
@@ -65,7 +65,7 @@ trait MyService extends HttpService {
               
               respondWithMediaType(`text/html`) {
                 complete {
-                  HostData.addHost(HostInfo(hostName, ip.toString, new Date))
+                  HostData.addHost(HostInfo(hostName, ip.toString, false, new Date))
                   <html>
                     <body>
                       <h1>PONG { "HostName: " + hostName + " -  IP: " + ip.toString }</h1>

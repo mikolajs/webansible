@@ -23,9 +23,12 @@ assemblySettings
 libraryDependencies ++= Seq(
   "io.spray"            %   "spray-can"     % "1.1-M8",
   "io.spray"            %   "spray-routing" % "1.1-M8",
+  "io.spray" %%  "spray-json" % "1.2.5",
   "io.spray"            %   "spray-testkit" % "1.1-M8",
   "com.typesafe.akka"   %%  "akka-actor"    % "2.1.4",
   "com.typesafe.akka"   %%  "akka-testkit"  % "2.1.4",
+  "com.typesafe.slick" %% "slick" % "2.0.0-RC1",
+  "org.slf4j" % "slf4j-nop" % "1.6.4",
   "com.h2database" % "h2" % "1.3.167",
   "org.specs2"          %%  "specs2"        % "1.14" % "test",
   "org.seleniumhq.selenium" % "selenium-java" % "2.28.0" % "test"
